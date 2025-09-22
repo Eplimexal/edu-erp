@@ -1,0 +1,141 @@
+:root {
+  --accent-color: #007bff;
+  --background-color: #f0f2f5;
+  --card-bg: #fff;
+  --text-color: #212529;
+  --input-border: #dee2e6;
+}
+
+.dashboard-outer {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--background-color);
+}
+
+.dashboard-card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  width: 520px;
+  max-width: 98vw;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.navbar {
+  width: 100%;
+  background: var(--accent-color);
+  color: white;
+  border-radius: 16px 16px 0 0;
+  padding: 22px 32px 18px 32px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-title {
+  font-size: 1.15rem;
+  font-weight: bold;
+  margin-right: 24px;
+  white-space: nowrap;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 22px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  cursor: pointer;
+  opacity: 0.94;
+  font-size: 1rem;
+  transition: opacity 0.17s;
+  white-space: nowrap;
+}
+
+.nav-links li:hover,
+.nav-links li.active {
+  opacity: 1;
+  font-weight: bold;
+}
+
+.dashboard-content {
+  display: flex;
+  min-height: 340px;
+}
+
+.sidebar {
+  width: 160px;
+  background: #f7f8fa;
+  border-right: 1px solid var(--input-border);
+  padding: 18px 0;
+}
+
+.sidebar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 10px 18px;
+  font-size: 1rem;
+  color: #283040;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.16s;
+  margin-bottom: 2px;
+}
+
+.sidebar li:hover {
+  background: #e8efff;
+}
+
+.main-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 340px;
+  background: var(--card-bg);
+}
+
+.welcome-center {
+  text-align: center;
+}
+
+.welcome-center h2 {
+  margin-bottom: 9px;
+  font-weight: 700;
+}
+
+.welcome-center p {
+  margin: 0;
+  color: #506080;
+  font-size: 1rem;
+}
+
+@media (max-width: 700px) {
+  .dashboard-card {
+    width: 99vw;
+    min-width: 0;
+    border-radius: 0;
+  }
+  .dashboard-content {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--input-border);
+    border-radius: 0;
+    padding: 10px 0;
+  }
+}
