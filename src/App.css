@@ -1,25 +1,28 @@
-body {
+/* Reset body & html */
+html, body, #root {
+  height: 100%;
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f0f2f5;
+  padding: 0;
 }
 
 /* Center container */
 .center-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  justify-content: center;   /* horizontal center */
+  align-items: center;       /* vertical center */
+  min-height: 100vh;         /* full viewport height */
+  background: var(--background-color); /* dynamic theme */
 }
 
 /* Card */
 .card {
-  background: white;
+  background: var(--card-bg);
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   text-align: center;
   width: 350px;
+  color: var(--text-color);
 }
 
 .card h1 {
@@ -32,15 +35,17 @@ form select {
   width: 90%;
   padding: 10px;
   margin: 8px 0;
-  border: 1px solid #ccc;
+  border: 1px solid var(--input-border);
   border-radius: 8px;
   outline: none;
+  background: var(--input-bg);
+  color: var(--text-color);
   transition: border 0.3s;
 }
 
 form input:focus,
 form select:focus {
-  border: 1px solid #007bff;
+  border: 1px solid var(--accent-color);
 }
 
 /* Buttons */
@@ -49,7 +54,7 @@ button {
   padding: 10px 20px;
   border: none;
   border-radius: 8px;
-  background: #007bff;
+  background: var(--accent-color);
   color: white;
   font-size: 14px;
   cursor: pointer;
@@ -57,13 +62,13 @@ button {
 }
 
 button:hover {
-  background: #0056b3;
+  background: var(--accent-hover);
 }
 
 /* Link-style buttons */
 .link-btn {
   background: none;
-  color: #007bff;
+  color: var(--accent-color);
   border: none;
   padding: 0;
   cursor: pointer;
@@ -80,18 +85,29 @@ button:hover {
 .logout-btn:hover {
   background: #a71d2a;
 }
-/* Reset body & html */
-html, body, #root {
-  height: 100%;
-  margin: 0;
-  padding: 0;
+
+/* Light theme variables */
+@media (prefers-color-scheme: light) {
+  :root {
+    --background-color: #f0f2f5;
+    --card-bg: #ffffff;
+    --text-color: #213547;
+    --input-bg: #ffffff;
+    --input-border: #ccc;
+    --accent-color: #007bff;
+    --accent-hover: #0056b3;
+  }
 }
 
-/* Center container */
-.center-container {
-  display: flex;
-  justify-content: center;   /* horizontal center */
-  align-items: center;       /* vertical center */
-  min-height: 100vh;         /* full viewport height */
-  background: #f0f2f5;       /* light gray background */
+/* Dark theme variables */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #121212;
+    --card-bg: #1e1e1e;
+    --text-color: #ffffff;
+    --input-bg: #2a2a2a;
+    --input-border: #555;
+    --accent-color: #4f9dff;
+    --accent-hover: #0066cc;
+  }
 }
