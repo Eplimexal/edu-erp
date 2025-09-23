@@ -5,7 +5,7 @@ import StudentDashboard from "./components/StudentDashboard";
 import AdministratorDashboard from "./components/AdministratorDashboard";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import "./App.css"; // <-- add this
+import "./App.css";
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -21,16 +21,22 @@ function App() {
     setCurrentUser(user);
   };
 
-  const renderDashboard = () => {
-    switch (currentUser.role) {
-      case "admin": return <AdminDashboard />;
-      case "teacher": return <TeacherDashboard />;
-      case "student": return <StudentDashboard />;
-      case "administrator": return <AdministratorDashboard />;
-      default: return <h2>No dashboard found</h2>;
-    }
-  };
+const renderDashboard = () => {
+  switch (currentUser.role) {
+    case "admin":
+      return <AdminDashboard currentUser={currentUser} />;
+    case "teacher":
+      return <TeacherDashboard currentUser={currentUser} />; // Pass the currentUser prop here
+    case "student":
+      return <StudentDashboard currentUser={currentUser} />;
+    case "administrator":
+      return <AdministratorDashboard currentUser={currentUser} />;
+    default:
+      return <h2>No dashboard found</h2>;
+  }
+};
 
+  // If not logged in → show Login/Register card
   if (!currentUser) {
     return (
       <div className="center-container">
@@ -41,7 +47,10 @@ function App() {
               <Login users={users} onLogin={handleLogin} />
               <p>
                 Don’t have an account?{" "}
-                <button className="link-btn" onClick={() => setPage("register")}>
+                <button
+                  className="link-btn"
+                  onClick={() => setPage("register")}
+                >
                   Register
                 </button>
               </p>
@@ -51,7 +60,10 @@ function App() {
               <Register onRegister={handleRegister} />
               <p>
                 Already have an account?{" "}
-                <button className="link-btn" onClick={() => setPage("login")}>
+                <button
+                  className="link-btn"
+                  onClick={() => setPage("login")}
+                >
                   Login
                 </button>
               </p>
@@ -62,16 +74,16 @@ function App() {
     );
   }
 
+  // If logged in → show dashboards full width
   return (
-    <div className="center-container">
-      <div className="card">
-        <h1>Welcome, {currentUser.name}</h1>
-        {renderDashboard()}
-        <button className="logout-btn" onClick={() => setCurrentUser(null)}>
-          Logout
-        </button>
-      </div>
+    <div className="dashboard-wrapper">
+      <h1>Welcome, {currentUser.name}</h1>
+      {renderDashboard()}
+      <button className="logout-btn" onClick={() => setCurrentUser(null)}>
+        Logout
+      </button>
     </div>
+   
   );
 }
 

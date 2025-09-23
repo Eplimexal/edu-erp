@@ -77,6 +77,12 @@ button:hover {
   font-size: 14px;
   text-decoration: underline;
 }
+.dashboard-wrapper {
+  width: 90;
+  min-height: 100vh;
+  padding: 20px;
+}
+
 
 .logout-btn {
   margin-top: 20px;
