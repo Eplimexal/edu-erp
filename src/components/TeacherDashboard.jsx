@@ -29,6 +29,7 @@ const TeacherDashboard = ({ currentUser }) => {
           <ul>
             <li>My Classes</li>
             <li>Counselling student list</li>
+            <li>Student Profiles</li>
             <li>Grades</li>
             <li>Announcements</li>
             <li>CRT Module</li>
