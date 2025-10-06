@@ -1,225 +1,192 @@
-/* src/index.css
-   Minimal global styles & utility classes used by the ERP components.
-   This is a pragmatic shim that approximates Tailwind-like utilities used
-   in the components so the UI looks right without Tailwind.
-*/
+/* --------- THEME-AWARE BASE --------- */
+:root {
+  color-scheme: light dark;
 
-/* Basic reset and font */
-:root{
-  --bg-dark: #0f0f10;
-  --card: #0f1720;
-  --muted: #9aa0a6;
-  --accent-1: #4f46e5; /* indigo */
-  --accent-2: #7c3aed; /* purple */
-  --accent-3: #ec4899; /* pink */
-  --glass: rgba(255,255,255,0.04);
+  /* Light palette */
+  --bg: #f7f8fb;
+  --bg-soft: #ffffff;
+  --text: #0b1220;
+  --text-muted: #5d6b82;
+  --border: rgba(10,15,25,0.08);
+  --elev: 0 10px 30px rgba(2,6,23,0.08);
+  --glass: rgba(255,255,255,.7);
+  --ring: rgba(79,70,229,.35);
+
+  /* Brand ramps */
+  --indigo-500:#6366f1; --indigo-600:#4f46e5;
+  --purple-500:#a855f7; --purple-600:#7c3aed;
+  --pink-500:#ec4899;
+  --blue-500:#3b82f6; --blue-600:#2563eb; --cyan-500:#06b6d4;
+  --green-500:#22c55e; --teal-500:#14b8a6;
+  --orange-500:#f97316; --red-500:#ef4444; --red-600:#dc2626;
+  --yellow-500:#eab308;
+
+  /* Surfaces */
+  --card: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.88));
+  --panel: linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.86));
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:#0b0c10;
+    --bg-soft:#0f1218;
+    --text:#e8eef8;
+    --text-muted:#a3afc2;
+    --border: rgba(255,255,255,0.06);
+    --elev: 0 10px 30px rgba(0,0,0,.55);
+    --glass: rgba(20,24,34,.7);
+    --ring: rgba(124,58,237,.45);
+
+    --card: linear-gradient(180deg, rgba(18,22,32,.96), rgba(16,20,28,.92));
+    --panel: linear-gradient(180deg, rgba(17,21,30,.9), rgba(14,18,26,.86));
+  }
+}
+
+/* ---------- GLOBAL RESET ----------- */
 * { box-sizing: border-box; }
-html,body,#root { height:100%; }
+html, body, #root { height: 100%; }
 body {
-  margin:0;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  background: linear-gradient(180deg, #0b0b0c 0%, #0e0e0f 100%);
-  color: #e6eef6;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  line-height:1.35;
-  padding: 12px 20px;
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+  background:
+    radial-gradient(60rem 60rem at -20% -20%, rgba(99,102,241,.20), transparent 60%),
+    radial-gradient(60rem 60rem at 120% 120%, rgba(124,58,237,.18), transparent 60%),
+    var(--bg);
+  color: var(--text);
 }
 
-/* center container used by original App.jsx */
+/* ---------- BASE ELEMENTS ---------- */
+a, button { transition: all .18s ease; }
+button { font-weight: 600; border:0; border-radius: 12px; cursor:pointer; }
+label { color: var(--text); opacity:.9; font-size: .95rem; }
+small { color: var(--text-muted); }
+
+input[type="text"], input[type="email"], input[type="password"], textarea, select {
+  width: 100%;
+  background: var(--bg-soft);
+  color: var(--text);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: .8rem 1rem;
+  outline: none;
+  box-shadow: inset 0 0 0 transparent;
+}
+input:focus, textarea:focus, select:focus {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 6px color-mix(in oklab, var(--ring) 30%, transparent);
+}
+
+/* ---------- LAYOUT HELPERS ---------- */
+.min-h-screen { min-height: 100vh; }
+.flex { display: flex; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.p-4 { padding: 1rem; }
+.p-6 { padding: 1.5rem; }
+.p-8 { padding: 2rem; }
+.mb-2 { margin-bottom: .5rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mb-6 { margin-bottom: 1.5rem; }
+.mb-8 { margin-bottom: 2rem; }
+.mt-6 { margin-top: 1.5rem; }
+
+.rounded-xl { border-radius: 14px; }
+.rounded-2xl { border-radius: 18px; }
+.shadow-lg { box-shadow: var(--elev); }
+.shadow-xl { box-shadow: 0 18px 50px rgba(0,0,0,.18); }
+
+.border { border: 1px solid var(--border); }
+.border-b { border-bottom: 1px solid var(--border); }
+
+.bg-white, .bg-white\/95 { background: var(--card); }
+.backdrop-blur-xl { backdrop-filter: saturate(140%) blur(18px); }
+
+.text-center { text-align: center; }
+.font-bold { font-weight: 700; }
+
+/* ---------- BUTTONS ---------- */
+.btn {
+  padding: .9rem 1rem;
+  border-radius: 14px;
+  font-weight: 700;
+}
+.btn-primary {
+  color: #fff;
+  background: linear-gradient(90deg, var(--indigo-600), var(--purple-600));
+  box-shadow: 0 12px 28px color-mix(in oklab, var(--indigo-600) 32%, transparent);
+}
+.btn-primary:hover { transform: translateY(-1px); }
+
+/* ---------- CARDS (updated version) ---------- */
+.card {
+  position: relative;
+  width: 400px;
+  max-width: 90%;
+  margin: 32px auto;
+  padding: 2rem 1.8rem;
+  border-radius: 24px;
+  border: 2px solid rgba(150, 120, 255, 0.3);
+  background: rgba(20, 20, 30, 0.65);
+  backdrop-filter: blur(20px) saturate(150%);
+  box-shadow:
+    0 0 25px rgba(120, 100, 255, 0.25),
+    0 0 50px rgba(80, 60, 200, 0.12);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 0 25px rgba(170, 140, 255, 0.3),
+    0 0 60px rgba(100, 80, 220, 0.18);
+  border-color: rgba(180, 150, 255, 0.5);
+}
+
+/* Soft glow overlay for realism */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.02)
+  );
+  pointer-events: none;
+}
+
+/* Adjust for larger screens */
+@media (min-width: 900px) {
+  .card {
+    width: 440px;
+  }
+}
+
+/* ---------- CONVENIENCE ---------- */
 .center-container {
-  min-height: calc(100vh - 24px);
+  min-height: 100dvh;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding: 20px;
+  padding: 24px;
 }
-
-/* card (login/register) */
-.card {
-  width: 100%;
-  max-width: 720px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015));
-  border: 1px solid rgba(255,255,255,0.04);
-  padding: 28px;
-  border-radius: 14px;
-  box-shadow: 0 10px 30px rgba(2,6,23,0.6);
-}
-
-/* heading */
-.card h1 {
-  margin: 0 0 14px 0;
-  font-size: 28px;
-  color: #fff;
-  letter-spacing: -0.6px;
-}
-
-/* Links / btn look */
-.link-btn {
-  background: transparent;
-  border: none;
-  color: #60a5fa;
-  text-decoration: underline;
-  cursor: pointer;
-  padding:0;
-  font-weight:600;
-}
-
-/* Form controls (inputs & selects) */
-input[type="text"],
-input[type="email"],
-input[type="password"],
-select,
-textarea {
-  width:100%;
-  display:block;
-  padding:10px 12px;
-  border-radius:8px;
-  border:1px solid rgba(255,255,255,0.08);
-  background: rgba(255,255,255,0.02);
-  color: #e6eef6;
-  margin:6px 0 12px 0;
-  outline:none;
-  transition: all .15s ease;
-  font-size:14px;
-}
-input:focus, textarea:focus, select:focus{
-  box-shadow: 0 6px 20px rgba(99,102,241,0.08);
-  border-color: rgba(99,102,241,0.7);
-}
-
-/* Buttons */
-button {
-  cursor: pointer;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
-  padding: 9px 16px;
-}
-
 .logout-btn {
-  margin-top: 18px;
-  background: linear-gradient(90deg, #ef4444, #ef9a9a);
-  color: white;
-  padding: 10px 14px;
-  border-radius: 8px;
-}
-
-button.primary, .sign-in-btn {
-  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
-  color: #fff;
-  padding: 10px 14px;
-  border-radius: 8px;
-  box-shadow: 0 10px 30px rgba(79,70,229,0.12);
-}
-
-/* small blue create account button used inline */
-.small-cta {
-  display:inline-block;
-  background: #3b82f6;
+  background: linear-gradient(90deg, var(--red-600), #fb7185);
   color:#fff;
-  padding:8px 12px;
-  border-radius:8px;
-  margin-left:10px;
-  font-weight:600;
-}
-
-/* Dashboard layout */
-.dashboard-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  min-height: calc(100vh - 24px);
-  padding: 18px;
-}
-
-/* A wide container for the actual dashboards */
-.dashboard-wrapper > h1 {
-  margin: 0 0 6px 0;
-  color:#fff;
-  font-size:22px;
-}
-
-/* Make the dashboard area scrollable and full width */
-.dashboard-wrapper > div, .dashboard-wrapper > main {
-  flex: 1 1 auto;
-  min-height: 0; /* allowing children to scroll */
-}
-
-/* Sidebar styles used by the dashboard components */
-.side-nav {
-  width: 280px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015));
-  border-right: 1px solid rgba(255,255,255,0.03);
-}
-
-/* Generic utility classes used by components */
-
-/* small helpers */
-.text-muted { color: var(--muted); }
-.font-bold { font-weight: 700; }
-.rounded-xl { border-radius: 12px; }
-.rounded-2xl { border-radius: 16px; }
-.shadow-lg { box-shadow: 0 10px 30px rgba(2,6,23,0.6); }
-
-/* grid helpers */
-.grid { display:grid; gap: 12px; }
-.grid-cols-2 { grid-template-columns: repeat(2,1fr); }
-.grid-cols-3 { grid-template-columns: repeat(3,1fr); }
-
-/* card box used widely */
-.box {
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015));
-  border: 1px solid rgba(255,255,255,0.035);
-  padding: 18px;
+  padding: 10px 14px;
   border-radius: 12px;
 }
-
-/* small badges */
-.badge {
-  display:inline-block;
-  padding:6px 10px;
-  border-radius:999px;
-  background: rgba(255,255,255,0.03);
-  color:#e6eef6;
+.link-btn {
+  background: none;
+  border:0;
+  color: var(--blue-600);
+  text-decoration: underline;
   font-weight:700;
+  cursor:pointer;
 }
 
-/* a simple responsive helper so big areas don't overflow on narrow screens */
-@media (max-width: 900px) {
-  .grid-cols-3 { grid-template-columns: 1fr; }
-  .grid-cols-2 { grid-template-columns: 1fr; }
-  .side-nav { display:none; }
-  .card { margin: 0 12px; }
-}
-
-/* Small animation for fake pulse backgrounds used in original */
-.animate-pulse {
-  animation: pulse 3s ease-in-out infinite;
-}
-@keyframes pulse {
-  0% { opacity: .65; transform: scale(1) }
-  50% { opacity: .35; transform: scale(1.03) }
-  100% { opacity: .65; transform: scale(1) }
-}
-
-/* tiny utility for small icons and spacing */
-.flex { display:flex; }
-.items-center { align-items:center; }
-.justify-between { justify-content: space-between; }
-
-/* make inputs and buttons readable in dark theme */
-label { color: #cfe6ff; font-size: 14px; }
-small { color: var(--muted); }
-
-/* table baseline for timetable/grades */
-table { width:100%; border-collapse: collapse; color: #e6eef6; }
-thead th {
-  text-align:left;
-  padding:14px;
-  font-weight:700;
-  background: linear-gradient(90deg, rgba(79,70,229,0.12), rgba(124,58,237,0.12));
-}
-tbody td { padding: 12px; border-top: 1px solid rgba(255,255,255,0.02); color:#d7e8ff; }
+/* Scrollbars */
+::-webkit-scrollbar { width: 10px; height:10px; }
+::-webkit-scrollbar-thumb { background: color-mix(in oklab, var(--indigo-600) 35%, transparent); border-radius:16px; }

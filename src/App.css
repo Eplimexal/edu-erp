@@ -1,73 +1,46 @@
-/* src/App.css
-   Component-specific tweaks and additional small helper classes
-*/
+/* Small extras tailored to your ERP pages */
 
-/* general container for the login card */
-.center-container .card {
-  max-width: 720px;
+.card h1 {
+  margin: 0 0 8px;
+  font-size: 32px;
+  letter-spacing: -0.4px;
+  background: linear-gradient(90deg, var(--indigo-600), var(--purple-600));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
 }
 
-/* sign-in button look */
-.sign-in-btn {
+/* Inline CTA next to "Don't have an account?" */
+.create-account,
+.small-cta {
   display:inline-block;
-  background: linear-gradient(90deg, #4f46e5, #7c3aed);
-  color: #fff;
-  padding: 10px 16px;
-  border-radius: 10px;
-  border: none;
-}
-
-/* a small blue create account button used in the login area */
-.create-account {
-  display:inline-block;
-  background: #60a5fa;
-  color: white;
+  background: var(--blue-500);
+  color:#fff;
   padding: 8px 12px;
-  border-radius: 8px;
-  margin-left: 6px;
-  text-decoration: none;
+  border-radius: 10px;
   font-weight: 700;
 }
 
-/* Dashboard left sidebar skeleton (in case the components rely on these classes) */
-.dashboard-wrapper {
-  display:flex;
-  gap: 18px;
-  align-items: flex-start;
+/* Badge style used for grades/status */
+.badge {
+  display:inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 800;
+  background: color-mix(in oklab, var(--bg-soft) 86%, transparent);
+  border: 1px solid var(--border);
 }
 
-/* When using the split layout (sidebar + content) the main content should expand */
-.dashboard-wrapper .content {
-  flex: 1;
-  min-height: 0;
-  overflow:auto;
-  padding: 12px;
-}
+/* Smoother hover scale cards */
+.hover\:scale-105:hover { transform: scale(1.03); }
 
-/* a nicer looking rounded profile dot */
-.profile-dot {
-  width:44px;
-  height:44px;
-  border-radius: 50%;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  color:white;
-  font-weight:700;
-  background: linear-gradient(90deg, #4f46e5, #7c3aed);
-}
+/* Ensure white-on-gradient text is actually white */
+.text-white, .text-white * { color: #fff; }
 
-/* small logout button */
-.logout-btn {
-  background: linear-gradient(90deg, #ef4444, #fb7185);
-  color: white;
-  padding: 10px 14px;
-  border-radius: 8px;
-  border: none;
-}
+/* Soft separator */
+.hr-soft { height:1px; background: var(--border); border:0; }
 
-/* small utility to make accent text */
-.accent {
-  color: #60a5fa;
-  font-weight:700;
-}
+/* Icon size helper if lucide looks off in some cards */
+.icon-12 { width: 3rem; height: 3rem; }
+
+/* Keep tables rounded in panels */
+table { border-radius: 14px; overflow: hidden; }
+
