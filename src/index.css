@@ -1,192 +1,524 @@
-/* --------- THEME-AWARE BASE --------- */
-:root {
-  color-scheme: light dark;
-
-  /* Light palette */
-  --bg: #f7f8fb;
-  --bg-soft: #ffffff;
-  --text: #0b1220;
-  --text-muted: #5d6b82;
-  --border: rgba(10,15,25,0.08);
-  --elev: 0 10px 30px rgba(2,6,23,0.08);
-  --glass: rgba(255,255,255,.7);
-  --ring: rgba(79,70,229,.35);
-
-  /* Brand ramps */
-  --indigo-500:#6366f1; --indigo-600:#4f46e5;
-  --purple-500:#a855f7; --purple-600:#7c3aed;
-  --pink-500:#ec4899;
-  --blue-500:#3b82f6; --blue-600:#2563eb; --cyan-500:#06b6d4;
-  --green-500:#22c55e; --teal-500:#14b8a6;
-  --orange-500:#f97316; --red-500:#ef4444; --red-600:#dc2626;
-  --yellow-500:#eab308;
-
-  /* Surfaces */
-  --card: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.88));
-  --panel: linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.86));
-}
-
-@media (prefers-color-scheme: dark) {
+  /* --------- THEME-AWARE BASE --------- */
   :root {
-    --bg:#0b0c10;
-    --bg-soft:#0f1218;
-    --text:#e8eef8;
-    --text-muted:#a3afc2;
-    --border: rgba(255,255,255,0.06);
-    --elev: 0 10px 30px rgba(0,0,0,.55);
-    --glass: rgba(20,24,34,.7);
-    --ring: rgba(124,58,237,.45);
+    color-scheme: light dark;
 
-    --card: linear-gradient(180deg, rgba(18,22,32,.96), rgba(16,20,28,.92));
-    --panel: linear-gradient(180deg, rgba(17,21,30,.9), rgba(14,18,26,.86));
+    /* Light palette */
+    --bg: #f7f8fb;
+    --bg-soft: #ffffff;
+    --text: #0b1220;
+    --text-muted: #5d6b82;
+    --border: rgba(10,15,25,0.08);
+    --elev: 0 10px 30px rgba(2,6,23,0.08);
+    --glass: rgba(255,255,255,.7);
+    --ring: rgba(79,70,229,.35);
+
+    /* Brand ramps */
+    --indigo-500:#6366f1; --indigo-600:#4f46e5;
+    --purple-500:#a855f7; --purple-600:#7c3aed;
+    --pink-500:#ec4899;
+    --blue-500:#3b82f6; --blue-600:#2563eb; --cyan-500:#06b6d4;
+    --green-500:#22c55e; --teal-500:#14b8a6;
+    --orange-500:#f97316; --red-500:#ef4444; --red-600:#dc2626;
+    --yellow-500:#eab308;
+
+    /* Surfaces */
+    --card: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.88));
+    --panel: linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.86));
   }
-}
 
-/* ---------- GLOBAL RESET ----------- */
-* { box-sizing: border-box; }
-html, body, #root { height: 100%; }
-body {
-  margin: 0;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
-  background:
-    radial-gradient(60rem 60rem at -20% -20%, rgba(99,102,241,.20), transparent 60%),
-    radial-gradient(60rem 60rem at 120% 120%, rgba(124,58,237,.18), transparent 60%),
-    var(--bg);
-  color: var(--text);
-}
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:#0b0c10;
+      --bg-soft:#0f1218;
+      --text:#e8eef8;
+      --text-muted:#a3afc2;
+      --border: rgba(255,255,255,0.06);
+      --elev: 0 10px 30px rgba(0,0,0,.55);
+      --glass: rgba(20,24,34,.7);
+      --ring: rgba(124,58,237,.45);
 
-/* ---------- BASE ELEMENTS ---------- */
-a, button { transition: all .18s ease; }
-button { font-weight: 600; border:0; border-radius: 12px; cursor:pointer; }
-label { color: var(--text); opacity:.9; font-size: .95rem; }
-small { color: var(--text-muted); }
+      --card: linear-gradient(180deg, rgba(18,22,32,.96), rgba(16,20,28,.92));
+      --panel: linear-gradient(180deg, rgba(17,21,30,.9), rgba(14,18,26,.86));
+    }
+  }
 
-input[type="text"], input[type="email"], input[type="password"], textarea, select {
-  width: 100%;
-  background: var(--bg-soft);
-  color: var(--text);
-  border: 1.5px solid var(--border);
-  border-radius: 14px;
-  padding: .8rem 1rem;
-  outline: none;
-  box-shadow: inset 0 0 0 transparent;
-}
-input:focus, textarea:focus, select:focus {
-  border-color: var(--ring);
-  box-shadow: 0 0 0 6px color-mix(in oklab, var(--ring) 30%, transparent);
-}
+  /* ---------- GLOBAL RESET ----------- */
+  * { box-sizing: border-box; }
+  html, body, #root { height: 100%; }
+  body {
+    margin: 0;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+    background:
+      radial-gradient(60rem 60rem at -20% -20%, rgba(99,102,241,.20), transparent 60%),
+      radial-gradient(60rem 60rem at 120% 120%, rgba(124,58,237,.18), transparent 60%),
+      var(--bg);
+    color: var(--text);
+  }
 
-/* ---------- LAYOUT HELPERS ---------- */
-.min-h-screen { min-height: 100vh; }
-.flex { display: flex; }
-.items-center { align-items: center; }
-.justify-center { justify-content: center; }
-.justify-between { justify-content: space-between; }
-.p-4 { padding: 1rem; }
-.p-6 { padding: 1.5rem; }
-.p-8 { padding: 2rem; }
-.mb-2 { margin-bottom: .5rem; }
-.mb-4 { margin-bottom: 1rem; }
-.mb-6 { margin-bottom: 1.5rem; }
-.mb-8 { margin-bottom: 2rem; }
-.mt-6 { margin-top: 1.5rem; }
+  /* ---------- BASE ELEMENTS ---------- */
+  a, button { transition: all .18s ease; }
+  button { font-weight: 600; border:0; border-radius: 12px; cursor:pointer; }
+  label { color: var(--text); opacity:.9; font-size: .95rem; }
+  small { color: var(--text-muted); }
 
-.rounded-xl { border-radius: 14px; }
-.rounded-2xl { border-radius: 18px; }
-.shadow-lg { box-shadow: var(--elev); }
-.shadow-xl { box-shadow: 0 18px 50px rgba(0,0,0,.18); }
+  /* Inputs */
+  input[type="text"], input[type="email"], input[type="password"], textarea, select {
+    width: 100%;
+    background: var(--bg-soft);
+    color: var(--text);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: .8rem 1rem;
+    outline: none;
+    box-shadow: inset 0 0 0 transparent;
+  }
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--ring);
+    box-shadow: 0 0 0 6px color-mix(in oklab, var(--ring) 30%, transparent);
+  }
 
-.border { border: 1px solid var(--border); }
-.border-b { border-bottom: 1px solid var(--border); }
+  /* Tables (grades/timetable) */
+  table { width: 100%; border-collapse: collapse; }
+  thead th{
+    text-align: left; padding: 14px;
+    color: white;
+    background: linear-gradient(90deg, color-mix(in oklab, var(--indigo-600) 70%, transparent), color-mix(in oklab, var(--purple-600) 70%, transparent));
+  }
+  tbody td { padding: 12px 14px; border-top: 1px solid var(--border); color: var(--text); }
+  tbody tr:hover { background: color-mix(in oklab, var(--bg-soft) 88%, transparent); }
 
-.bg-white, .bg-white\/95 { background: var(--card); }
-.backdrop-blur-xl { backdrop-filter: saturate(140%) blur(18px); }
+  /* ---------- LAYOUT HELPERS ---------- */
+  .min-h-screen { min-height: 100vh; }
+  .flex { display: flex; }
+  .items-center { align-items: center; }
+  .justify-center { justify-content: center; }
+  .justify-between { justify-content: space-between; }
+  .p-4 { padding: 1rem; }
+  .p-6 { padding: 1.5rem; }
+  .p-8 { padding: 2rem; }
+  .mb-2 { margin-bottom: .5rem; }
+  .mb-4 { margin-bottom: 1rem; }
+  .mb-6 { margin-bottom: 1.5rem; }
+  .mb-8 { margin-bottom: 2rem; }
+  .mt-6 { margin-top: 1.5rem; }
+  .space-y-4 > * + * { margin-top: 1rem; }
+  .space-y-5 > * + * { margin-top: 1.25rem; }
 
-.text-center { text-align: center; }
-.font-bold { font-weight: 700; }
+  .rounded-xl { border-radius: 14px; }
+  .rounded-2xl { border-radius: 18px; }
+  .shadow-lg { box-shadow: var(--elev); }
+  .shadow-xl { box-shadow: 0 18px 50px rgba(0,0,0,.18); }
+  .shadow-2xl { box-shadow: 0 28px 70px rgba(0,0,0,.25); }
 
-/* ---------- BUTTONS ---------- */
-.btn {
-  padding: .9rem 1rem;
-  border-radius: 14px;
-  font-weight: 700;
-}
-.btn-primary {
-  color: #fff;
-  background: linear-gradient(90deg, var(--indigo-600), var(--purple-600));
-  box-shadow: 0 12px 28px color-mix(in oklab, var(--indigo-600) 32%, transparent);
-}
-.btn-primary:hover { transform: translateY(-1px); }
+  .border { border: 1px solid var(--border); }
+  .border-b { border-bottom: 1px solid var(--border); }
+  .border-t { border-top: 1px solid var(--border); }
+  .border-gray-200 { border-color: var(--border); }
 
-/* ---------- CARDS (updated version) ---------- */
-.card {
-  position: relative;
-  width: 400px;
-  max-width: 90%;
-  margin: 32px auto;
-  padding: 2rem 1.8rem;
-  border-radius: 24px;
-  border: 2px solid rgba(150, 120, 255, 0.3);
-  background: rgba(20, 20, 30, 0.65);
-  backdrop-filter: blur(20px) saturate(150%);
-  box-shadow:
-    0 0 25px rgba(120, 100, 255, 0.25),
-    0 0 50px rgba(80, 60, 200, 0.12);
-  transition: all 0.3s ease;
-}
+  .bg-white, .bg-white\/95 { background: var(--card); }
+  .backdrop-blur-xl { backdrop-filter: saturate(140%) blur(18px); }
 
-.card:hover {
-  transform: translateY(-3px);
-  box-shadow:
-    0 0 25px rgba(170, 140, 255, 0.3),
-    0 0 60px rgba(100, 80, 220, 0.18);
-  border-color: rgba(180, 150, 255, 0.5);
-}
+  /* ---------- TYPOGRAPHY ---------- */
+  .text-center { text-align: center; }
+  .text-right { text-align: right; }
+  .text-sm { font-size: .9rem; }
+  .text-lg { font-size: 1.125rem; }
+  .text-2xl { font-size: 1.5rem; }
+  .text-3xl { font-size: 1.875rem; }
+  .text-4xl { font-size: 2.25rem; }
+  .font-bold { font-weight: 700; }
+  .font-medium { font-weight: 600; }
 
-/* Soft glow overlay for realism */
-.card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.1),
-    rgba(255, 255, 255, 0.02)
-  );
-  pointer-events: none;
-}
+  /* Themed text colors */
+  .text-white { color: #fff; }
+  .text-gray-500 { color: var(--text-muted); }
+  .text-gray-600 { color: color-mix(in oklab, var(--text) 75%, #7990a7); }
+  .text-gray-700 { color: color-mix(in oklab, var(--text) 85%, #5a6b84); }
+  .text-gray-800 { color: color-mix(in oklab, var(--text) 95%, black); }
+  .text-indigo-600 { color: var(--indigo-600); }
+  .text-green-600 { color: color-mix(in oklab, var(--green-500) 90%, black); }
+  .text-yellow-600 { color: color-mix(in oklab, var(--yellow-500) 90%, black); }
+  .text-red-600 { color: var(--red-600); }
 
-/* Adjust for larger screens */
-@media (min-width: 900px) {
+  /* ---------- BUTTONS ---------- */
+  .btn {
+    padding: .9rem 1rem;
+    border-radius: 14px;
+    font-weight: 700;
+  }
+  .btn-primary {
+    color: #fff;
+    background: linear-gradient(90deg, var(--indigo-600), var(--purple-600));
+    box-shadow: 0 12px 28px color-mix(in oklab, var(--indigo-600) 32%, transparent);
+  }
+  .btn-primary:hover { transform: translateY(-1px); }
+  .btn-muted {
+    background: color-mix(in oklab, var(--bg-soft) 82%, transparent);
+    color: var(--text);
+    border:1px solid var(--border);
+  }
+  .btn-muted:hover { background: color-mix(in oklab, var(--bg-soft) 92%, transparent); }
+
+  /* ---------- BADGES / STATUS ---------- */
+  .bg-green-100 { background: color-mix(in oklab, var(--green-500) 10%, #fff); }
+  .text-green-700 { color: color-mix(in oklab, var(--green-500) 80%, black); }
+  .bg-orange-100 { background: color-mix(in oklab, var(--orange-500) 12%, #fff); }
+  .text-orange-700 { color: color-mix(in oklab, var(--orange-500) 80%, black); }
+
+  /* ---------- GRADIENT UTILITIES (used by your JSX) ---------- */
+  .bg-gradient-to-br { background-image: linear-gradient(135deg, var(--grad-from), var(--grad-to)); }
+  .bg-gradient-to-r  { background-image: linear-gradient(90deg, var(--grad-from), var(--grad-to)); }
+  .from-indigo-500 { --grad-from: var(--indigo-500); }
+  .to-purple-600  { --grad-to: var(--purple-600); }
+  .from-blue-500  { --grad-from: var(--blue-500); }
+  .to-cyan-500    { --grad-to: var(--cyan-500); }
+  .from-purple-500{ --grad-from: var(--purple-500); }
+  .to-pink-500    { --grad-to: var(--pink-500); }
+  .from-green-500 { --grad-from: var(--green-500); }
+  .to-teal-500    { --grad-to: var(--teal-500); }
+  .from-orange-500{ --grad-from: var(--orange-500); }
+  .to-red-500     { --grad-to: var(--red-500); }
+  .to-indigo-600  { --grad-to: var(--indigo-600); }
+  /* replace the empty rule on or around line 182 with this: */
+  .from-blue-500\.to-indigo-600 {
+    --grad-from: var(--blue-500);
+    --grad-to: var(--indigo-600);
+  }
+
+
+  /* helper for translucent chip sections */
+  .bg-white\/20 { background: rgba(255,255,255,.2); }
+  .bg-gray-100  { background: color-mix(in oklab, var(--bg-soft) 96%, transparent); }
+  .bg-gray-200  { background: color-mix(in oklab, var(--bg-soft) 92%, transparent); }
+  .text-indigo-600 { color: var(--indigo-600); }
+
+  /* ---------- CARDS / PANELS ---------- */
   .card {
-    width: 440px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: var(--elev);
+    padding: 28px;
   }
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: var(--elev);
+    padding: 24px;
+  }
+
+  /* ---------- ANIMATIONS ---------- */
+  .animate-pulse { animation: pulse 3s ease-in-out infinite; }
+  @keyframes pulse {
+    0%,100% { opacity:.8; transform: scale(1) }
+    50% { opacity:.55; transform: scale(1.02) }
+  }
+
+  /* ---------- CONVENIENCE (your original wrappers) ---------- */
+  .center-container {
+    min-height: 100dvh;
+    display:flex; align-items:center; justify-content:center;
+    padding: 24px;
+  }
+  .dashboard-wrapper {
+    min-height: 100dvh;
+    padding: 18px;
+    display:flex; flex-direction:column; gap:14px;
+  }
+  .logout-btn {
+    background: linear-gradient(90deg, var(--red-600), #fb7185);
+    color:#fff; padding: 10px 14px; border-radius: 12px;
+  }
+  .link-btn {
+    background: none; border:0; color: var(--blue-600);
+    text-decoration: underline; font-weight:700; cursor:pointer;
+  }
+
+  /* ---------- SIDE NAV (used in dashboards) ---------- */
+  .w-72 { width: 18rem; }
+  .h-screen { height: 100vh; }
+  .bg-white { background: var(--panel); }
+  .border-r { border-right: 1px solid var(--border); }
+
+  /* Keep scroll areas pretty */
+  ::-webkit-scrollbar { width: 10px; height:10px; }
+  ::-webkit-scrollbar-thumb { background: color-mix(in oklab, var(--indigo-600) 35%, transparent); border-radius:16px; }
+
+  /* -------------------------
+    Login card polish overrides
+    Paste at the end of your CSS file
+    ------------------------- */
+
+  /* Card sizing + layout */
+  .card {
+    width: 360px;                /* comfortable mobile width */
+    max-width: calc(100% - 48px);
+    padding: 0;                  /* we'll control inner padding per section */
+    overflow: hidden;
+    border-radius: 16px;
+    display: block;
+    margin: 24px auto;           /* center on narrow screens */
+    background: linear-gradient(180deg, rgba(14,18,28,0.96), rgba(20,22,30,0.92));
+    border: 1px solid rgba(255,255,255,0.03);
+    box-shadow: 0 18px 60px rgba(2,6,23,0.6);
+  }
+
+  /* Top icon banner */
+  .card .top-banner {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: 18px;
+    background: linear-gradient(90deg, var(--indigo-600), var(--purple-600));
+    box-shadow: 0 8px 24px rgba(79,70,229,0.12) inset;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+  }
+
+  /* small icon inside the banner */
+  .card .top-banner .icon {
+    width:46px;
+    height:46px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.06);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+  }
+
+  /* Title bar below banner */
+  .card h1 {
+    margin:0;
+    padding: 12px 18px;
+    text-align:center;
+    font-size: 26px;
+    line-height: 1;
+    font-weight:800;
+    color: #fff;
+    background: linear-gradient(90deg, rgba(99,102,241,0.12), rgba(124,58,237,0.12));
+  }
+
+  /* Body area (form area) */
+  .card .card-body {
+    padding: 20px 20px 24px 20px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  }
+
+  /* subtitle */
+  .card .subtitle {
+    color: color-mix(in oklab, var(--text) 60%, transparent);
+    font-size: 0.95rem;
+    margin-bottom: 14px;
+  }
+
+  /* Labels */
+  .card label {
+    display:block;
+    font-size: .85rem;
+    color: color-mix(in oklab, var(--text) 78%, transparent);
+    margin-bottom: 6px;
+  }
+
+  /* Inputs */
+  .card input[type="email"],
+  .card input[type="password"],
+  .card input[type="text"],
+  .card select,
+  .card textarea {
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015));
+    border: 1px solid rgba(255,255,255,0.04);
+    padding: 12px 14px;
+    border-radius: 999px; /* pill inputs */
+    color: var(--text);
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+    transition: box-shadow .15s, border-color .12s, transform .12s;
+  }
+  .card input:focus {
+    outline: none;
+    border-color: var(--ring);
+    box-shadow: 0 6px 24px color-mix(in oklab, var(--ring) 20%, transparent);
+    transform: translateY(-1px);
+  }
+
+  /* Radio group layout */
+  .login-as {
+    display:flex;
+    gap:12px;
+    align-items:center;
+    margin: 8px 0 14px;
+  }
+
+  /* Use modern accent-color (simple cross-browser) */
+  .card input[type="radio"] {
+    accent-color: var(--indigo-600);
+    width: 18px;
+    height: 18px;
+  }
+
+  /* Improve label for radio */
+  .card .radio-label {
+    display:inline-flex;
+    align-items:center;
+    gap: 8px;
+    color: color-mix(in oklab, var(--text) 85%, transparent);
+    font-weight:700;
+  }
+
+  /* Primary action */
+  .btn-primary, .sign-in-btn, button.primary {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background-image: linear-gradient(90deg, var(--indigo-600), var(--purple-600));
+    color: white;
+    font-weight: 800;
+    font-size: 0.95rem;
+    box-shadow: 0 14px 40px color-mix(in oklab, var(--indigo-600) 18%, transparent);
+    border: 0;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 20px 48px color-mix(in oklab, var(--indigo-600) 26%, transparent); }
+  .btn-primary:active { transform: translateY(0); }
+
+  /* Small create account link */
+  .create-account {
+    display:inline-block;
+    margin-left: 8px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--bg-soft) 70%, transparent);
+    color: var(--blue-500);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  /* bottom text + spacing */
+  .card .footer-note {
+    margin-top: 14px;
+    font-size: 0.9rem;
+    color: color-mix(in oklab, var(--text) 70%, transparent);
+  }
+
+  /* tiny helper for the "No file chosen" text line if exists */
+  .card .file-name {
+    color: color-mix(in oklab, var(--text) 65%, transparent);
+    font-weight: 600;
+  }
+
+  /* fix the small radio button circle spacing */
+  .card .login-as .radio-label input[type="radio"] {
+    margin: 0 4px 0 0;
+  }
+
+  /* Responsive: wider on desktop, center in page */
+  @media (min-width: 900px) {
+    .card {
+      width: 420px;
+      margin: 48px auto;
+    }
+  }
+
+
+  /* ===== quick fix: rounded panel + stronger border (paste at end of index.css) ===== */
+
+/* make rounded-3xl actually round things */
+.rounded-3xl {
+  border-radius: 22px !important;
 }
 
-/* ---------- CONVENIENCE ---------- */
+/* panel-specific tweak:
+   matches the element that has classes: rounded-3xl w-full max-w-md
+   (we don't touch global .border width; only this common login-panel combo)
+*/
+.rounded-3xl.w-full.max-w-md {
+  border-width: 2px !important;
+  border-style: solid !important;
+  border-color: rgba(255,255,255,0.12) !important; /* visible but subtle in dark theme */
+  box-shadow: 0 18px 50px rgba(2,6,23,0.6), 0 0 30px rgba(100,70,220,0.04);
+  background: linear-gradient(180deg, rgba(14,18,28,0.96), rgba(16,20,28,0.92));
+}
+
+/* handle the utility-like classes that include a slash in their name */
+.bg-white\/95 { background: var(--card) !important; }
+.border-white\/20 { border-color: rgba(255,255,255,0.12) !important; }
+
+/* make the top capsule/banner respect the same corner radius so there are no seams */
+.rounded-3xl .top-banner,
+.rounded-3xl .top-banner > * {
+  border-top-left-radius: 22px !important;
+  border-top-right-radius: 22px !important;
+}
+
+/* tiny polish: keep inner contents above decorations */
+.rounded-3xl > * { position: relative; z-index: 1; }
+
+/* optional: slightly larger radius for very rounded look — uncomment to test */
+/* .rounded-3xl { border-radius: 26px !important; } */
+
+/* ===== improved layout spacing & breathing room ===== */
+
+/* Give the entire card a bit more internal space */
+.rounded-3xl.w-full.max-w-md {
+  padding: 26px 32px !important;
+}
+
+/* Add consistent spacing between stacked elements */
+.rounded-3xl.w-full.max-w-md > * + * {
+  margin-top: 1.2rem;
+}
+
+/* Add more vertical room around headings */
+.rounded-3xl h1 {
+  margin-top: 8px;
+  margin-bottom: 16px;
+  letter-spacing: 0.5px;
+}
+
+/* Add space below subtitle text */
+.rounded-3xl p.text-gray-500 {
+  margin-bottom: 20px;
+}
+
+/* Make inputs breathe more */
+.rounded-3xl input {
+  padding: 14px 18px !important;
+  font-size: 0.95rem;
+}
+
+/* Add space between label groups */
+.rounded-3xl label {
+  margin-top: 10px;
+  margin-bottom: 6px;
+}
+
+/* Space between radio buttons and button below */
+.login-as {
+  margin-bottom: 20px !important;
+}
+
+/* Make the Sign In button more noticeable and roomy */
+.rounded-3xl button,
+.sign-in-btn {
+  width: 100%;
+  padding: 12px 18px !important;
+  font-size: 1rem;
+  letter-spacing: 0.3px;
+  margin-top: 10px;
+}
+
+/* Add more gap between the bottom “Create Account” link */
+.rounded-3xl .footer-note {
+  margin-top: 24px !important;
+}
+
+/* Make the overall layout sit slightly higher (for visual balance) */
 .center-container {
-  min-height: 100dvh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding: 24px;
+  padding-top: 3vh;
+  padding-bottom: 3vh;
 }
-.logout-btn {
-  background: linear-gradient(90deg, var(--red-600), #fb7185);
-  color:#fff;
-  padding: 10px 14px;
-  border-radius: 12px;
-}
-.link-btn {
-  background: none;
-  border:0;
-  color: var(--blue-600);
-  text-decoration: underline;
-  font-weight:700;
-  cursor:pointer;
-}
-
-/* Scrollbars */
-::-webkit-scrollbar { width: 10px; height:10px; }
-::-webkit-scrollbar-thumb { background: color-mix(in oklab, var(--indigo-600) 35%, transparent); border-radius:16px; }
