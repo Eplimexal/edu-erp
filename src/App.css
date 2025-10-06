@@ -1,91 +1,73 @@
-/* Basic app-level reset */
-html, body, #root {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  background: var(--background-color);
-  color: var(--text-color);
-  font-family: Arial, sans-serif;
+/* src/App.css
+   Component-specific tweaks and additional small helper classes
+*/
+
+/* general container for the login card */
+.center-container .card {
+  max-width: 720px;
 }
 
-/* Use this when you want a single centered card (login/register) */
-.center-container {
-  display: flex;
-  justify-content: center;   /* horizontal center */
-  align-items: center;       /* vertical center */
-  min-height: 100vh;         /* full viewport height */
-  width: 100%;
-}
-
-/* Card used for login/register */
-.card {
-  background: var(--card-bg);
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-  text-align: center;
-  width: 350px;
-  color: var(--text-color);
-}
-
-.card h1 {
-  margin-bottom: 20px;
-}
-
-/* Inputs */
-form input,
-form select {
-  width: 90%;
-  padding: 10px;
-  margin: 8px 0;
-  border: 1px solid var(--input-border);
-  border-radius: 8px;
-  outline: none;
-  background: var(--input-bg);
-  color: var(--text-color);
-  transition: border 0.3s;
-}
-
-form input:focus,
-form select:focus {
-  border: 1px solid var(--accent-color);
-}
-
-/* Buttons */
-button {
-  margin-top: 10px;
-  padding: 10px 20px;
+/* sign-in button look */
+.sign-in-btn {
+  display:inline-block;
+  background: linear-gradient(90deg, #4f46e5, #7c3aed);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 10px;
   border: none;
-  border-radius: 8px;
-  background: var(--accent-color);
+}
+
+/* a small blue create account button used in the login area */
+.create-account {
+  display:inline-block;
+  background: #60a5fa;
   color: white;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background 0.3s;
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin-left: 6px;
+  text-decoration: none;
+  font-weight: 700;
 }
 
-button:hover {
-  background: var(--accent-hover);
-}
-
-.link-btn {
-  background: none;
-  color: var(--accent-color);
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  font-size: 14px;
-  text-decoration: underline;
-}
+/* Dashboard left sidebar skeleton (in case the components rely on these classes) */
 .dashboard-wrapper {
-  width: 90;
-  min-height: 100vh;
-  padding: 20px;
+  display:flex;
+  gap: 18px;
+  align-items: flex-start;
 }
 
+/* When using the split layout (sidebar + content) the main content should expand */
+.dashboard-wrapper .content {
+  flex: 1;
+  min-height: 0;
+  overflow:auto;
+  padding: 12px;
+}
 
+/* a nicer looking rounded profile dot */
+.profile-dot {
+  width:44px;
+  height:44px;
+  border-radius: 50%;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  font-weight:700;
+  background: linear-gradient(90deg, #4f46e5, #7c3aed);
+}
+
+/* small logout button */
 .logout-btn {
-  margin-top: 20px;
-  background: #dc3545;
+  background: linear-gradient(90deg, #ef4444, #fb7185);
+  color: white;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
 }
-.logout-btn:hover { background: #a71d2a; }
+
+/* small utility to make accent text */
+.accent {
+  color: #60a5fa;
+  font-weight:700;
+}
