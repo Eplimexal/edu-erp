@@ -522,3 +522,30 @@
   padding-top: 3vh;
   padding-bottom: 3vh;
 }
+
+/* ===== remove gradient box behind "University ERP" and refine heading ===== */
+
+/* Remove the banner background and let the text float elegantly */
+.card h1 {
+  background: none !important;
+  padding: 0 !important;
+  margin: 16px 0 8px !important;
+  text-align: center;
+  font-size: 28px;
+  font-weight: 800;
+  color: #ffffff;
+  text-shadow: 0 2px 12px rgba(124,58,237,0.25); /* subtle purple glow */
+  letter-spacing: 0.5px;
+}
+
+/* Optional: slight bottom border line for separation (remove if not needed) */
+.card h1::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 2px;
+  margin: 8px auto 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--indigo-600), var(--purple-600));
+  opacity: 0.5;
+}
