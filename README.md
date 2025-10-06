@@ -1,11 +1,8 @@
-# React + Vite
+# Edu-erp, an ERP project for our third semester (2-1)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project uses Vite + React and Node.js and also MaterialUI.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Currently our CSS needs a lot of fixing and perfecting. Our pages are also really basic and needs a lot of optimisation and a way to handle data (We are going to implement MongoDB in this for managing the student and teacher and admin data
 
 ## Expanding the ESLint configuration
 
