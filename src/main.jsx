@@ -10,9 +10,12 @@ const root = createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <ThemeProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      {/* app-bg wraps the entire UI so backgrounds/overlays show everywhere */}
+      <div className="app-bg">
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </div>
     </ThemeProvider>
   </React.StrictMode>
 );
