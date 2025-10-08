@@ -20,31 +20,59 @@ export default function Login() {
   }
 
   return (
-    <div style={{ maxWidth: 480, margin: '40px auto' }}>
-      <Card title="Sign in to Edu ERP">
-        <form onSubmit={handleSubmit} style={{ display: 'grid', gap: 12 }}>
-          <label>
-            <div className="kicker">Email</div>
-            <input className="input" type="email" required placeholder="you@university.edu" value={email} onChange={(e) => setEmail(e.target.value)} />
-          </label>
+    <div className="app-bg">
+      <div className="login-wrapper">
+        <div className="card-halo" aria-hidden="true" />
 
-          <label>
-            <div className="kicker">Password</div>
-            <input className="input" type="password" required placeholder="mock password (any value)" />
-          </label>
+        <Card className="duo-card" title="Sign in to Edu ERP">
+          {/* --- form content --- */}
+          <form onSubmit={handleSubmit} style={{ display: 'grid', gap: 12 }}>
+            <label>
+              <div className="kicker">Email</div>
+              <input
+                className="input"
+                type="email"
+                required
+                placeholder="you@university.edu"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </label>
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
-            <div style={{ display: 'flex', gap: 8 }}>
-              <Link to="/register/student" className="small">Register student</Link>
-              <Link to="/register/teacher" className="small">Register teacher</Link>
+            <label>
+              <div className="kicker">Password</div>
+              <input
+                className="input"
+                type="password"
+                required
+                placeholder="mock password (any value)"
+              />
+            </label>
+
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                gap: 8,
+              }}
+            >
+              <div style={{ display: 'flex', gap: 8 }}>
+                <Link to="/register/student" className="small link">
+                  Register student
+                </Link>
+                <Link to="/register/teacher" className="small link">
+                  Register teacher
+                </Link>
+              </div>
+
+              <button type="submit" className="btn-sign">
+                Sign in
+              </button>
             </div>
-
-            <button type="submit" className="input" style={{ cursor: 'pointer' }}>
-              Sign in
-            </button>
-          </div>
-        </form>
-      </Card>
+          </form>
+        </Card>
+      </div>
     </div>
   );
 }

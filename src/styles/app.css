@@ -1,7 +1,17 @@
-@import './theme.css';
+/* Make root use the new app-bg (we use the ThemeContext to set theme class on <html>) */
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: var(--text);
+}
 
-/* layout & shell */
+/* ensure the background container is the first child under body */
+#root > .app-bg { min-height: 100vh; }
+
+/* app-shell sits visually above the background layer */
 .app-shell {
+  position: relative;
+  z-index: 2;
   display: grid;
   grid-template-columns: 260px 1fr;
   gap: 18px;
@@ -9,73 +19,48 @@
   align-items: start;
 }
 
-@media (max-width: 900px) {
-  .app-shell { grid-template-columns: 1fr; }
+/* style login wrapper: center top, with floating accent behind card */
+.login-wrapper {
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  padding: 48px 18px;
+  position: relative;
+  z-index: 3;
 }
 
-/* sidebar */
-.sidebar {
-  padding: 18px;
-  background: linear-gradient(180deg, var(--surface), var(--surface-2));
-  border-right: 1px solid rgba(12,20,31,0.04);
-  box-shadow: 8px 18px 40px rgba(12,20,31,0.04);
-  height: 100vh;
+/* a decorative blurred halo behind the login card to give depth */
+.login-wrapper .card-halo {
+  position: absolute;
+  width: 340px;
+  height: 140px;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-18%);
+  border-radius: 24px;
+  background: linear-gradient(90deg, rgba(91,124,255,0.14), rgba(155,124,255,0.08));
+  filter: blur(36px);
+  opacity: 0.9;
+  z-index: 1;
+  pointer-events: none;
 }
 
-.logo { display:flex; align-items:center; gap:10px; margin-bottom:18px; }
-.logo img { width:42px; height:42px; border-radius:8px; }
-
-/* nav */
-.nav { margin-top: 8px; }
-.nav a {
-  display:block; padding: 10px 12px; border-radius: 10px; color: var(--text);
-  text-decoration:none; margin-bottom:8px; font-weight:500;
-}
-.nav a.active, .nav a:hover {
-  background: linear-gradient(90deg, rgba(91,124,255,0.12), rgba(155,124,255,0.06));
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+/* ensure the login card sits above the halo */
+.login-wrapper .duo-card {
+  position: relative;
+  z-index: 2;
+  width: 420px;
 }
 
-/* main content */
-.container { max-width: 1100px; margin: 0 auto; padding: 20px 18px; }
-.header { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
-.content { padding: 6px 0; }
-
-/* cards and forms */
-/* cards and forms */
-.card {
-  background: linear-gradient(180deg, var(--surface), var(--surface-2));
-  border-radius: var(--radius-md);
-  padding: 16px;
-  box-shadow:
-    8px 10px 22px rgba(12,20,31,0.04),
-    -8px -8px 20px rgba(255,255,255,0.6);
-  border: 1px solid rgba(12,20,31,0.03);
-}
-.card .h2 {
-  margin-bottom: 6px;
-}
-
-
-.input {
-  background: var(--surface-2);
+/* sign-in button with subtle glow */
+.btn-sign {
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  color: white;
   border-radius: 8px;
-  border: 1px solid rgba(12,20,31,0.04);
-  padding: 8px 12px;
-  color: var(--text);
-  box-shadow: 6px 8px 20px var(--shadow-dark), -6px -6px 18px var(--shadow-light);
+  padding: 8px 14px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(91,124,255,0.12);
+  transition: transform .12s ease, box-shadow .12s ease;
 }
-
-/* search input size */
-.search { width: 340px; }
-@media (max-width:900px) { .search { width: 100%; } }
-
-/* table */
-.table { width:100%; border-collapse:collapse; }
-.table th, .table td { text-align:left; padding:10px 12px; border-bottom:1px solid rgba(12,20,31,0.03); }
-
-/* utilities */
-.center { text-align:center; }
-.muted { color: var(--muted-1); }
-.kicker { color: var(--muted-1); font-size:12px; }
-.small { font-size:13px; color:var(--muted-2); }
+.btn-sign:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(91,124,255,0.16); }
