@@ -1,13 +1,22 @@
-// src/App.jsx
-import React from "react";
-import "./App.css";
-import UniversityERP from "./pages/UniversityERP";
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout';
+import Dashboard from './pages/Dashboard';
+import Students from './pages/Students';
+import Teachers from './pages/Teachers';
+import Login from './pages/Login';
+import NotFound from './pages/NotFound';
 
-/**
- * App - top-level entry
- * We delegate everything to UniversityERP which contains the login/register/dashboard flow.
- * This keeps the app simple and avoids duplicating state across multiple places.
- */
 export default function App() {
-  return <UniversityERP />;
+  return (
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Dashboard />} />
+        <Route path="students" element={<Students />} />
+        <Route path="teachers" element={<Teachers />} />
+        <Route path="login" element={<Login />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
+  );
 }

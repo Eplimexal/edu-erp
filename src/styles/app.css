@@ -1,0 +1,113 @@
+/* app-level components styling - use this for layout and component helpers */
+
+/* layout */
+.app-shell {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 18px;
+  min-height: 100vh;
+}
+
+@media (max-width: 900px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* sidebar */
+.sidebar {
+  background: #ffffff;
+  padding: 18px;
+  border-right: 1px solid rgba(12,20,31,0.04);
+  box-shadow: 0 8px 30px rgba(12,20,31,0.04);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.logo img {
+  width: 42px;
+  height: 42px;
+}
+
+/* nav */
+.nav {
+  margin-top: 8px;
+}
+
+.nav a {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: #0c1520;
+  text-decoration: none;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.nav a.active,
+.nav a:hover {
+  background: linear-gradient(180deg, #eef2ff, #f5f7ff);
+}
+
+/* header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.header .search {
+  width: 360px;
+}
+
+@media (max-width: 900px) {
+  .header .search { width: 100%; margin-top: 10px; }
+}
+
+/* content */
+.content {
+  padding: 24px;
+}
+
+/* card */
+.card {
+  background: #fff;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(12,20,31,0.04);
+  border: 1px solid rgba(12,20,31,0.03);
+  margin-bottom: 16px;
+}
+
+/* form basics */
+.form-row { display: flex; gap: 12px; align-items:center; }
+.input, .select {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #e6e9ef;
+  background: #fff;
+}
+
+/* table */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid #f1f3f6;
+}
+
+/* tiny utilities */
+.kicker { font-size: 12px; color: #8b8f98; }
+.small { font-size: 13px; }
+.center { text-align: center; }
