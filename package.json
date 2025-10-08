@@ -6,8 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint 'src/**/*.{js,jsx}' --max-warnings=0",
+    "lint:fix": "eslint 'src/**/*.{js,jsx}' --fix",
+    "format": "prettier --write 'src/**/*.{js,jsx,css,md,json}'",
+    "prepare": "husky install"
   },
   "dependencies": {
     "lucide-react": "^0.544.0",
@@ -28,5 +31,11 @@
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.14",
     "vite": "^7.1.6"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,css,json,md}": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }
