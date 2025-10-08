@@ -42,8 +42,20 @@
 .content { padding: 6px 0; }
 
 /* cards and forms */
-.card { composes: duo-card; /* uses class from theme.css */ }
-.card .h2 { margin-bottom:6px; }
+/* cards and forms */
+.card {
+  background: linear-gradient(180deg, var(--surface), var(--surface-2));
+  border-radius: var(--radius-md);
+  padding: 16px;
+  box-shadow:
+    8px 10px 22px rgba(12,20,31,0.04),
+    -8px -8px 20px rgba(255,255,255,0.6);
+  border: 1px solid rgba(12,20,31,0.03);
+}
+.card .h2 {
+  margin-bottom: 6px;
+}
+
 
 .input {
   background: var(--surface-2);
