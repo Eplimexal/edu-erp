@@ -1,0 +1,157 @@
+/* theme.css
+   Holds color variables for light & dark (duomorphism) and neumorphic surface helpers.
+   Import this from index.css or main css.
+*/
+
+/* ---------- Base: variables used across themes ---------- */
+:root {
+  /* Duotone base — tweak these to change the whole look */
+  --accent-1: #5b7cff; /* primary accent */
+  --accent-2: #9b7cff; /* secondary accent for duotone */
+  --muted-1: #6b7280;
+  --muted-2: #9aa0a6;
+
+  /* Surface tokens */
+  --surface: #ffffff;
+  --surface-2: #f1f5f9;
+  --bg: #f7f8fb;
+  --text: #0c1520;
+
+  /* neumorph shadow colors */
+  --shadow-light: rgba(255,255,255,0.9);
+  --shadow-dark: rgba(12,20,31,0.06);
+
+  /* controls */
+  --radius-md: 12px;
+  --radius-sm: 8px;
+}
+
+/* ---------- Dark theme variables ---------- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --accent-1: #7aa2ff;
+    --accent-2: #6b8bff;
+    --muted-1: #b8c0cc;
+    --muted-2: #95a0ad;
+
+    --surface: #0b1220;
+    --surface-2: #0f1724;
+    --bg: linear-gradient(180deg, #06101a, #071425);
+    --text: #e6eefc;
+
+    --shadow-light: rgba(255,255,255,0.03);
+    --shadow-dark: rgba(0,0,0,0.6);
+  }
+}
+
+/* ---------- Theme mode override (class-based) ---------- */
+/* Use .theme-dark or .theme-light on <html> or <body> to override the system preference */
+.theme-light {
+  --accent-1: #5b7cff;
+  --accent-2: #9b7cff;
+  --muted-1: #6b7280;
+  --muted-2: #9aa0a6;
+
+  --surface: #ffffff;
+  --surface-2: #f1f5f9;
+  --bg: #f7f8fb;
+  --text: #0c1520;
+
+  --shadow-light: rgba(255,255,255,0.9);
+  --shadow-dark: rgba(12,20,31,0.06);
+}
+
+.theme-dark {
+  --accent-1: #7aa2ff;
+  --accent-2: #6b8bff;
+  --muted-1: #b8c0cc;
+  --muted-2: #95a0ad;
+
+  --surface: #0b1220;
+  --surface-2: #0f1724;
+  --bg: linear-gradient(180deg, #06101a, #071425);
+  --text: #e6eefc;
+
+  --shadow-light: rgba(255,255,255,0.03);
+  --shadow-dark: rgba(0,0,0,0.6);
+}
+
+/* ---------- Neumorphic helpers ---------- */
+/* Soft raised surface */
+.neu {
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  box-shadow:
+    10px 12px 24px var(--shadow-dark),
+    -10px -10px 24px var(--shadow-light);
+  border: 1px solid rgba(255,255,255,0.03);
+}
+
+/* Inset / pressed */
+.neu-inset {
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  box-shadow:
+    inset 6px 6px 12px rgba(0,0,0,0.06),
+    inset -6px -6px 12px rgba(255,255,255,0.6);
+}
+
+/* Soft card for duomorphism with accent edge */
+.duo-card {
+  background: linear-gradient(180deg, var(--surface), var(--surface-2));
+  border-radius: var(--radius-md);
+  padding: 16px;
+  box-shadow:
+    8px 10px 22px rgba(12,20,31,0.04),
+    -8px -8px 20px rgba(255,255,255,0.6);
+  border: 1px solid rgba(12,20,31,0.03);
+}
+
+/* small accent pill / badge */
+.accent-pill {
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:999px;
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  color: white;
+  font-weight:600;
+  font-size:13px;
+}
+
+/* input / button */
+.input {
+  background: var(--surface-2);
+  border: 1px solid rgba(12,20,31,0.04);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  outline: none;
+  transition: box-shadow .18s ease, transform .12s ease;
+  box-shadow: 4px 6px 16px var(--shadow-dark), -4px -4px 10px var(--shadow-light);
+}
+.input:focus {
+  transform: translateY(-1px);
+  box-shadow: 8px 12px 22px rgba(12,20,31,0.08), -6px -6px 18px rgba(255,255,255,0.45);
+  border-color: rgba(90,120,255,0.9);
+}
+
+/* subtle link */
+.link {
+  color: var(--accent-1);
+  text-decoration: underline;
+}
+
+/* small helper */
+.kicker { font-size: 12px; color: var(--muted-1); }
+.h1 { font-size: 20px; font-weight:700; color:var(--text); }
+.h2 { font-size: 16px; font-weight:600; color:var(--text); }
+.small { font-size: 13px; color:var(--muted-2); }
+
+/* page background helper */
+.app-bg {
+  min-height: 100vh;
+  background: var(--bg);
+  padding: 18px 0;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
