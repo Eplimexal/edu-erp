@@ -1,4 +1,6 @@
-/* Make root use the new app-bg (we use the ThemeContext to set theme class on <html>) */
+@import './theme.css';
+
+/* root / body basics */
 body {
   margin: 0;
   font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
@@ -8,7 +10,7 @@ body {
 /* ensure the background container is the first child under body */
 #root > .app-bg { min-height: 100vh; }
 
-/* app-shell sits visually above the background layer */
+/* app-shell sits above the background layer */
 .app-shell {
   position: relative;
   z-index: 2;
@@ -19,7 +21,16 @@ body {
   align-items: start;
 }
 
-/* style login wrapper: center top, with floating accent behind card */
+/* sidebar lightly elevated */
+.sidebar {
+  padding: 18px;
+  background: linear-gradient(180deg, var(--surface), var(--surface-2));
+  border-right: 1px solid rgba(12,20,31,0.04);
+  box-shadow: 6px 14px 30px rgba(12,20,31,0.04);
+  height: 100vh;
+}
+
+/* login wrapper + halo (toned down) */
 .login-wrapper {
   display:flex;
   justify-content:center;
@@ -29,18 +40,17 @@ body {
   z-index: 3;
 }
 
-/* a decorative blurred halo behind the login card to give depth */
 .login-wrapper .card-halo {
   position: absolute;
-  width: 340px;
-  height: 140px;
-  top: 8px;
+  width: 300px;        /* reduced width */
+  height: 120px;       /* reduced height */
+  top: 6px;            /* smaller offset */
   left: 50%;
-  transform: translateX(-50%) translateY(-18%);
-  border-radius: 24px;
-  background: linear-gradient(90deg, rgba(91,124,255,0.14), rgba(155,124,255,0.08));
-  filter: blur(36px);
-  opacity: 0.9;
+  transform: translateX(-50%) translateY(-12%);
+  border-radius: 18px;
+  background: linear-gradient(90deg, rgba(91,124,255,0.10), rgba(155,124,255,0.06));
+  filter: blur(24px);  /* reduced blur */
+  opacity: 0.75;
   z-index: 1;
   pointer-events: none;
 }
@@ -60,7 +70,7 @@ body {
   padding: 8px 14px;
   border: none;
   cursor: pointer;
-  box-shadow: 0 8px 24px rgba(91,124,255,0.12);
+  box-shadow: 0 8px 24px rgba(91,124,255,0.10);
   transition: transform .12s ease, box-shadow .12s ease;
 }
-.btn-sign:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(91,124,255,0.16); }
+.btn-sign:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(91,124,255,0.14); }
