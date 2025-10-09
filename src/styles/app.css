@@ -1,5 +1,12 @@
 @import './theme.css';
 
+/* -------------------------
+   Root / body basics
+   ------------------------- */
+html, body, #root {
+  height: 100%;
+}
+
 body {
   margin: 0;
   font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
@@ -10,100 +17,279 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Main app container — now sits above .app-bg */
-#root, .app-shell {
-  position: relative;
-  z-index: 10;
+/* -------------------------
+   App background (from theme.css)
+   .app-bg is fixed and non-interactive
+   ------------------------- */
+.app-bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-color-plain);
+  pointer-events: none;
+  z-index: 0;
 }
 
-/* Login wrapper */
-.login-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 64px 16px;
+/* -------------------------
+   Layout: app shell & container
+   ------------------------- */
+.app-shell {
   position: relative;
-  z-index: 15;
+  z-index: 10; /* above .app-bg */
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 18px;
+  min-height: 100%;
+  align-items: start;
+  background: transparent;
 }
 
-/* Card */
-.duo-card {
+@media (max-width: 900px) {
+  .app-shell { grid-template-columns: 1fr; }
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 18px;
+  background: transparent;
+}
+
+/* -------------------------
+   Sidebar
+   ------------------------- */
+.sidebar {
+  padding: 18px;
   background: linear-gradient(180deg, var(--surface), var(--surface-2));
-  color: var(--text);
-  border-radius: 16px;
-  padding: 24px 28px;
-  box-shadow:
-    8px 12px 26px rgba(0, 0, 0, 0.45),
-    -6px -6px 18px rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  width: 380px;
+  border-right: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 6px 14px 30px rgba(0,0,0,0.04);
+  height: 100vh;
   position: relative;
+  z-index: 20; /* keep sidebar above background but below interactive cards if needed */
+  color: var(--text);
+}
+
+.logo { display:flex; align-items:center; gap:10px; margin-bottom:18px; }
+.logo img { width:42px; height:42px; border-radius:8px; }
+
+/* nav */
+.nav { margin-top: 8px; }
+.nav a {
+  display:block;
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: var(--text);
+  text-decoration:none;
+  margin-bottom:8px;
+  font-weight:500;
+}
+.nav a.active, .nav a:hover {
+  background: linear-gradient(90deg, rgba(91,124,255,0.12), rgba(155,124,255,0.06));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+}
+
+/* -------------------------
+   Header / Topbar
+   ------------------------- */
+.header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:14px;
   z-index: 20;
 }
+.header .search {
+  width: 360px;
+}
+@media (max-width:900px) { .header .search { width:100%; margin-top:10px; } }
 
-.duo-card::before {
-  content: "";
+/* -------------------------
+   Content & cards
+   ------------------------- */
+.content { padding: 6px 0; }
+
+.card, .duo-card {
+  background: linear-gradient(180deg, var(--surface), var(--surface-2));
+  color: var(--text);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow:
+    6px 10px 20px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.06);
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 20; /* ensure cards are interactive and above bg */
+}
+
+/* duo-card accent edge */
+.duo-card .accent-edge {
   position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(80% 100% at 50% 0%, rgba(255,255,255,0.05), transparent);
-  z-index: 1;
+  left: 12px;
+  top: -10px;
+  height: 6px;
+  width: calc(100% - 24px);
+  border-radius: 6px;
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  filter: blur(6px);
+  opacity: 0.7;
   pointer-events: none;
 }
 
-.duo-card * {
-  position: relative;
-  z-index: 2; /* content always above any pseudo-layers */
-}
-
-/* Inputs */
+/* -------------------------
+   Forms & inputs
+   ------------------------- */
 .input {
-  display: block;
-  width: 100%;
+  display:block;
+  width:100%;
+  box-sizing:border-box;
   background: var(--surface-2);
   border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(0,0,0,0.08);
   padding: 10px 12px;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
   color: var(--text);
+  outline: none;
   z-index: 30;
   pointer-events: auto;
 }
 
 .input:focus {
   border-color: var(--accent-1);
-  box-shadow: 0 0 4px var(--accent-1);
+  box-shadow: 0 0 6px rgba(90,120,255,0.12);
 }
 
-/* Buttons */
-button {
-  cursor: pointer;
-  border: none;
-  padding: 8px 18px;
+/* -------------------------
+   Buttons
+   ------------------------- */
+.btn, button {
+  padding: 8px 12px;
   border-radius: 8px;
+  border: none;
+  cursor: pointer;
   background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
   color: white;
-  transition: transform 0.15s ease, opacity 0.15s ease;
   z-index: 30;
+  pointer-events: auto;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.btn:hover, button:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(91,124,255,0.14); }
+.btn:active, button:active { transform: translateY(0); }
+
+/* -------------------------
+   Tiny utilities / typography
+   ------------------------- */
+.kicker { font-size: 12px; color: var(--muted-1); }
+.h1 { font-size: 20px; font-weight:700; color:var(--text); }
+.h2 { font-size: 16px; font-weight:600; color:var(--text); }
+.small { font-size: 13px; color:var(--muted-2); }
+.center { text-align:center; }
+
+/* -------------------------
+   Tables
+   ------------------------- */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.table th, .table td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
 }
 
-button:hover {
-  opacity: 0.9;
-  transform: scale(1.02);
+/* -------------------------
+   Login wrapper + halo
+   ------------------------- */
+.login-wrapper {
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  padding: 48px 18px;
+  position: relative;
+  z-index: 25; /* high so login is above everything */
 }
 
-/* Links */
-a {
-  color: var(--accent-1);
-  text-decoration: none;
+.login-wrapper .card-halo {
+  position: absolute;
+  width: 300px;
+  height: 120px;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-12%);
+  border-radius: 18px;
+  background: linear-gradient(90deg, rgba(91,124,255,0.10), rgba(155,124,255,0.06));
+  filter: blur(24px);
+  opacity: 0.75;
+  z-index: 1;
+  pointer-events: none; /* ensure halo never intercepts */
 }
 
-a:hover { text-decoration: underline; }
-
-/* Responsive */
-@media (max-width: 480px) {
-  .duo-card {
-    width: 92%;
-    padding: 20px;
-  }
+.login-wrapper .duo-card {
+  position: relative;
+  z-index: 30;
+  width: 420px;
 }
+
+/* -------------------------
+   Misc small components
+   ------------------------- */
+.card .h2, .duo-card .h2 { margin-bottom: 6px; }
+.kicker-inline { display:inline-block; margin-right:8px; }
+
+/* -------------------------
+   Responsive tweaks
+   ------------------------- */
+@media (max-width: 640px) {
+  .login-wrapper .duo-card { width: 92%; }
+  .search { width: 100%; }
+  .sidebar { display: none; }
+}
+
+/* ======================================================
+   EMERGENCY INTERACTION FIX (temporary, append-only)
+   - Forces interactive controls above accidental overlays
+   - Ensures halos/overlays don't intercept clicks
+   - Use while we debug exact stacking issues; remove later.
+   ====================================================== */
+
+/* global box sizing smoothing */
+* { box-sizing: border-box; -webkit-tap-highlight-color: rgba(0,0,0,0); }
+
+/* ensure background & halo layers cannot intercept pointer events */
+.app-bg,
+.card-halo,
+.halo,
+.overlay,
+.duo-card::before,
+.duo-card::after {
+  pointer-events: none !important;
+}
+
+/* ensure card + form content are on top and interactive */
+.duo-card, .duo-card * {
+  z-index: 9999 !important;
+  position: relative !important;
+  pointer-events: auto !important;
+}
+
+/* ensure any interactive controls are clickable */
+button, .btn, a.button, a.btn, input, textarea, select {
+  pointer-events: auto !important;
+  user-select: none;
+  cursor: pointer;
+  z-index: 10000 !important;
+  position: relative !important;
+}
+
+/* visual affordances when testing */
+button, .btn {
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35) !important;
+  transition: transform .12s ease, opacity .12s ease !important;
+}
+button:active, .btn:active { transform: translateY(1px) !important; }
+
+/* cleanup: if any accidental overlay exists we force it behind */
+[role="presentation"], [role="dialog"] { pointer-events: auto; }
+
+/* end of emergency hotfix */
