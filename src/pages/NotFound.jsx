@@ -3,12 +3,10 @@ import { Link } from 'react-router-dom';
 
 export default function NotFound() {
   return (
-    <div style={{textAlign:'center', paddingTop:40}}>
-      <div className="h1">Page not found</div>
-      <p className="muted">We couldn't find the page you were looking for.</p>
-      <div style={{marginTop:16}}>
-        <Link to="/">← Back to dashboard</Link>
-      </div>
+    <div style={{ padding: 32 }}>
+      <h2 className="h1">Page not found</h2>
+      <p className="small">We couldn't find that page.</p>
+      <Link to="/">Back home</Link>
     </div>
   );
 }

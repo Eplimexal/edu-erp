@@ -1,16 +1,15 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider, useAuth } from './context/AuthContext';
 import Layout from './components/Layout';
-import Dashboard from './pages/Dashboard';
+import Login from './pages/Login';
+import Register from './pages/Register';
 import Students from './pages/Students';
 import Teachers from './pages/Teachers';
-import Login from './pages/Login';
-import RegisterStudent from './pages/RegisterStudent';
-import RegisterTeacher from './pages/RegisterTeacher';
+import StudentDashboard from './pages/StudentDashboard';
+import TeacherDashboard from './pages/TeacherDashboard';
 import NotFound from './pages/NotFound';
+import { useAuth } from './context/AuthContext';
 
-/* Small wrapper to protect private routes */
 function RequireAuth({ children }) {
   const { isAuthenticated } = useAuth();
   if (!isAuthenticated) return <Navigate to="/login" replace />;
@@ -19,31 +18,26 @@ function RequireAuth({ children }) {
 
 export default function App() {
   return (
-    <AuthProvider>
-      <Routes>
-        {/* Public routes */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register/student" element={<RegisterStudent />} />
-        <Route path="/register/teacher" element={<RegisterTeacher />} />
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
 
-        {/* Private app */}
-        <Route
-          path="/"
-          element={
-            <RequireAuth>
-              <Layout />
-            </RequireAuth>
-          }
-        >
-          <Route index element={<Dashboard />} />
-          <Route path="students" element={<Students />} />
-          <Route path="teachers" element={<Teachers />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
+      <Route
+        path="/"
+        element={
+          <RequireAuth>
+            <Layout />
+          </RequireAuth>
+        }
+      >
+        <Route index element={<div style={{ padding: 20 }}>Use sidebar to navigate</div>} />
+        <Route path="students" element={<Students />} />
+        <Route path="teachers" element={<Teachers />} />
+        <Route path="student-dashboard" element={<StudentDashboard />} />
+        <Route path="teacher-dashboard" element={<TeacherDashboard />} />
+      </Route>
 
-        {/* Default catch: send to login */}
-        <Route path="*" element={<Navigate to="/login" replace />} />
-      </Routes>
-    </AuthProvider>
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 }

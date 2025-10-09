@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-// Simple mock auth context (frontend-only).
-// Stores a small user object in localStorage so page refresh keeps the session.
+// Simple auth context with role support: 'student' | 'teacher' | 'admin'
+// Persists to localStorage under 'edu_erp_user'
 
 const AuthContext = createContext();
 
@@ -20,18 +20,29 @@ export function AuthProvider({ children }) {
     else localStorage.removeItem('edu_erp_user');
   }, [user]);
 
-  const login = ({ email }) => {
-    // Mock login: accept any email, set name from email prefix
-    const name = email.split('@')[0] || email;
-    setUser({ name, email, role: 'admin' });
-  };
+  function login({ email }) {
+    // mock: if email contains 'student' choose student, 'teacher' choose teacher, else student
+    const role = email.includes('teacher') ? 'teacher' : email.includes('student') ? 'student' : 'student';
+    const name = email.split('@')[0];
+    setUser({ email, name, role });
+  }
 
-  const logout = () => {
+  function register({ name, email, role }) {
+    // store in local lists
+    const key = role === 'teacher' ? 'edu_erp_teachers' : 'edu_erp_students';
+    const existing = JSON.parse(localStorage.getItem(key) || '[]');
+    existing.unshift({ id: Date.now(), name, email, role });
+    localStorage.setItem(key, JSON.stringify(existing));
+    // auto-login
+    setUser({ email, name, role });
+  }
+
+  function logout() {
     setUser(null);
-  };
+  }
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, isAuthenticated: !!user }}>
+    <AuthContext.Provider value={{ user, login, logout, register, isAuthenticated: !!user }}>
       {children}
     </AuthContext.Provider>
   );
