@@ -1,8 +1,5 @@
 @import './theme.css';
 
-/* -------------------------
-   Root / body basics
-------------------------- */
 body {
   margin: 0;
   font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
@@ -13,42 +10,35 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* The gradient or solid background */
-.app-bg {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--bg-color-plain);
-  z-index: -1;
-  pointer-events: none;
+/* Main app container — now sits above .app-bg */
+#root, .app-shell {
+  position: relative;
+  z-index: 10;
 }
 
-/* -------------------------
-   Login wrapper & card
-------------------------- */
+/* Login wrapper */
 .login-wrapper {
   display: flex;
   justify-content: center;
   align-items: flex-start;
   padding: 64px 16px;
   position: relative;
-  z-index: 1;
+  z-index: 15;
 }
 
+/* Card */
 .duo-card {
   background: linear-gradient(180deg, var(--surface), var(--surface-2));
   color: var(--text);
   border-radius: 16px;
   padding: 24px 28px;
   box-shadow:
-    6px 10px 18px rgba(0, 0, 0, 0.3),
-    -6px -6px 14px rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+    8px 12px 26px rgba(0, 0, 0, 0.45),
+    -6px -6px 18px rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.04);
   width: 380px;
   position: relative;
-  z-index: 2;
-  isolation: isolate; /* ensures pseudo-elements stay inside */
+  z-index: 20;
 }
 
 .duo-card::before {
@@ -56,30 +46,28 @@ body {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: radial-gradient(60% 80% at 50% 20%, rgba(255,255,255,0.08), transparent);
-  z-index: 0;
+  background: radial-gradient(80% 100% at 50% 0%, rgba(255,255,255,0.05), transparent);
+  z-index: 1;
   pointer-events: none;
 }
 
 .duo-card * {
   position: relative;
-  z-index: 1; /* keep real content above any glow */
+  z-index: 2; /* content always above any pseudo-layers */
 }
 
-/* -------------------------
-   Inputs & buttons
-------------------------- */
+/* Inputs */
 .input {
   display: block;
   width: 100%;
   background: var(--surface-2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 10px 12px;
   margin-bottom: 14px;
   color: var(--text);
-  outline: none;
-  z-index: 3;
+  z-index: 30;
+  pointer-events: auto;
 }
 
 .input:focus {
@@ -87,6 +75,7 @@ body {
   box-shadow: 0 0 4px var(--accent-1);
 }
 
+/* Buttons */
 button {
   cursor: pointer;
   border: none;
@@ -95,6 +84,7 @@ button {
   background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
   color: white;
   transition: transform 0.15s ease, opacity 0.15s ease;
+  z-index: 30;
 }
 
 button:hover {
@@ -102,22 +92,15 @@ button:hover {
   transform: scale(1.02);
 }
 
-/* -------------------------
-   Typography
-------------------------- */
-h2, h3, h4 {
-  margin: 0 0 12px 0;
-  color: var(--text);
-}
+/* Links */
 a {
   color: var(--accent-1);
   text-decoration: none;
 }
+
 a:hover { text-decoration: underline; }
 
-/* -------------------------
-   Responsive tweak
-------------------------- */
+/* Responsive */
 @media (max-width: 480px) {
   .duo-card {
     width: 92%;
