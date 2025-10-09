@@ -36,11 +36,14 @@
 }
 
 /* global app background - simple: single color depending on theme variables */
+/* full viewport background element - MUST NOT intercept clicks */
 .app-bg {
   position: fixed;
   inset: 0;
-  z-index: 0;
   width: 100%;
   height: 100%;
+  z-index: -1;            /* behind everything */
   background: var(--bg-color-plain);
+  pointer-events: none;   /* do not receive any mouse events */
 }
+

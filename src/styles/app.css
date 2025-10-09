@@ -10,11 +10,20 @@ body {
   -moz-osx-font-smoothing:grayscale;
 }
 
-#root > .app-bg { min-height: 100vh; position: fixed; inset: 0; width: 100%; z-index: 0; pointer-events: none; }
+/* ensure the fixed background element exists, but is behind the UI */
+#root > .app-bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;        /* ensure below all UI */
+  pointer-events: none;
+}
 
+/* app-shell must be above everything and allow pointer-events */
 .app-shell {
   position: relative;
-  z-index: 2;
+  z-index: 1;         /* any positive z-index above -1 */
   display: grid;
   grid-template-columns: 260px 1fr;
   gap: 18px;
@@ -23,9 +32,9 @@ body {
   background: transparent;
 }
 
-@media (max-width: 900px) { .app-shell { grid-template-columns: 1fr; } }
+/* container transparent so background shows */
+.container { background: transparent; }
 
-.container { max-width: 1100px; margin: 0 auto; padding: 20px 18px; background: transparent; }
 
 .sidebar {
   padding: 18px;
