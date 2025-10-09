@@ -1,50 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import Card from '../components/Card';
-import { Link } from 'react-router-dom';
+
+function read(key) { return JSON.parse(localStorage.getItem(key) || '[]'); }
 
 export default function Teachers() {
   const [teachers, setTeachers] = useState([]);
 
   useEffect(() => {
-    const list = JSON.parse(localStorage.getItem('edu_erp_teachers') || '[]');
-    setTeachers(list);
+    setTeachers(read('edu_erp_teachers'));
   }, []);
 
   return (
     <div>
-      <div className="h2" style={{ marginBottom: 12, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <span>Teachers</span>
-        <Link to="/register/teacher" className="input" style={{ padding: '8px 12px', textDecoration: 'none' }}>
-          Add teacher
-        </Link>
+      <div style={{ display:'flex', justifyContent:'space-between', marginBottom:12 }}>
+        <div className="h2">Teachers</div>
       </div>
 
       <Card>
-        <table className="table" aria-describedby="teachers-table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Department</th>
-            </tr>
-          </thead>
-          <tbody>
-            {teachers.length === 0 ? (
-              <tr>
-                <td colSpan="2" className="center muted">
-                  No teachers yet. <br />
-                  <Link to="/register/teacher">Register a teacher</Link>
-                </td>
-              </tr>
-            ) : (
-              teachers.map((t) => (
-                <tr key={t.id}>
-                  <td>{t.name}</td>
-                  <td>{t.dept}</td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+        {teachers.length === 0 ? <div className="small muted">No teachers</div> : (
+          <table className="table">
+            <thead><tr><th>Name</th><th>Email</th></tr></thead>
+            <tbody>
+              {teachers.map(t => <tr key={t.id}><td>{t.name}</td><td>{t.email}</td></tr>)}
+            </tbody>
+          </table>
+        )}
       </Card>
     </div>
   );

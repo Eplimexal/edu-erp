@@ -6,7 +6,6 @@ import { useAuth } from '../context/AuthContext';
 
 export default function Layout() {
   const { user } = useAuth();
-
   return (
     <div className="app-shell">
       <aside className="sidebar">
@@ -18,16 +17,7 @@ export default function Layout() {
           <header className="header">
             <Topbar />
           </header>
-
           <div className="content">
-            {/* show a small welcome when available */}
-            {user && (
-              <div style={{ marginBottom: 12 }}>
-                <div className="kicker">Signed in as</div>
-                <div className="h2">{user.name}</div>
-              </div>
-            )}
-
             <Outlet />
           </div>
         </div>

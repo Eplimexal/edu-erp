@@ -3,7 +3,6 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
-  // mode: 'system' | 'light' | 'dark'
   const [mode, setMode] = useState(() => {
     try {
       return localStorage.getItem('edu_erp_theme_mode') || 'system';
@@ -12,32 +11,26 @@ export function ThemeProvider({ children }) {
     }
   });
 
-  // computed theme: 'light' | 'dark'
   const [theme, setTheme] = useState(() => {
     if (mode === 'light' || mode === 'dark') return mode;
     return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   });
 
-  // listen to system changes if mode === 'system'
   useEffect(() => {
     const mql = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
-
-    function applySystem(e) {
+    function handle(e) {
       if (mode === 'system') setTheme(e.matches ? 'dark' : 'light');
     }
-
     if (mql) {
-      mql.addEventListener ? mql.addEventListener('change', applySystem) : mql.addListener(applySystem);
+      mql.addEventListener ? mql.addEventListener('change', handle) : mql.addListener(handle);
     }
-
     return () => {
       if (mql) {
-        mql.removeEventListener ? mql.removeEventListener('change', applySystem) : mql.removeListener(applySystem);
+        mql.removeEventListener ? mql.removeEventListener('change', handle) : mql.removeListener(handle);
       }
     };
   }, [mode]);
 
-  // when mode changes compute theme and persist
   useEffect(() => {
     if (mode === 'system') {
       const isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -50,7 +43,6 @@ export function ThemeProvider({ children }) {
     } catch {}
   }, [mode]);
 
-  // apply a class to <html> so CSS can override
   useEffect(() => {
     const root = document.documentElement;
     root.classList.remove('theme-dark', 'theme-light');

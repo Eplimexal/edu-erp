@@ -7,9 +7,9 @@ export default function Login() {
   const { login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
+  const [password] = useState(''); // mock
 
   if (isAuthenticated) {
-    // already logged in -> dashboard
     navigate('/');
   }
 
@@ -20,8 +20,8 @@ export default function Login() {
   }
 
   return (
-    <div style={{ maxWidth: 480, margin: '40px auto' }}>
-      <Card title="Sign in to Edu ERP">
+    <div className="login-wrapper">
+      <Card title="Sign in to Edu ERP" className="duo-card">
         <form onSubmit={handleSubmit} style={{ display: 'grid', gap: 12 }}>
           <label>
             <div className="kicker">Email</div>
@@ -30,18 +30,14 @@ export default function Login() {
 
           <label>
             <div className="kicker">Password</div>
-            <input className="input" type="password" required placeholder="mock password (any value)" />
+            <input className="input" type="password" required placeholder="your password" />
           </label>
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
-            <div style={{ display: 'flex', gap: 8 }}>
-              <Link to="/register/student" className="small">Register student</Link>
-              <Link to="/register/teacher" className="small">Register teacher</Link>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <Link to="/register" className="small">Register</Link>
             </div>
-
-            <button type="submit" className="input" style={{ cursor: 'pointer' }}>
-              Sign in
-            </button>
+            <button type="submit" className="btn">Sign in</button>
           </div>
         </form>
       </Card>
