@@ -1,45 +1,40 @@
-import React from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+// simple sidebar; uses NavLink to highlight active
+import React from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function Sidebar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  function signOut() {
+  function handleSignOut() {
     logout();
-    navigate('/login');
+    navigate("/login");
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+    <aside className="sidebar">
       <div className="logo">
-        <div style={{ width: 42, height: 42, borderRadius: 8, background: 'linear-gradient(90deg,var(--accent-1),var(--accent-2))' }} />
-        <div>
-          <div className="h1">Edu ERP</div>
-          <div className="kicker">University - Desktop</div>
+        <div style={{ width: 42, height: 42, borderRadius: 8, background: "linear-gradient(90deg,var(--accent-1),var(--accent-2))" }} />
+        <div style={{ marginLeft: 8 }}>
+          <div style={{ fontWeight: 700 }}>Edu ERP</div>
+          <div className="small kicker">University - Desktop</div>
         </div>
       </div>
 
-      <nav className="nav" style={{ flex: 1 }}>
-        <NavLink to="/" end style={({ isActive }) => ({ display: 'block', padding: 10, borderRadius: 8, color: 'var(--text)', textDecoration: 'none', marginBottom: 8, background: isActive ? 'rgba(91,124,255,0.08)' : 'transparent' })}>Home</NavLink>
+      <nav className="nav">
+        <NavLink to="/" end>Home</NavLink>
+        {user && user.role === "student" && <NavLink to="/student-dashboard">My Dashboard</NavLink>}
+        {user && user.role === "teacher" && <NavLink to="/teacher-dashboard">My Dashboard</NavLink>}
+        {user && user.role === "admin" && <NavLink to="/admin">Admin Dashboard</NavLink>}
 
-        <NavLink to="/student-dashboard" style={({ isActive }) => ({ display: 'block', padding: 10, borderRadius: 8, color: 'var(--text)', textDecoration: 'none', marginBottom: 8, background: isActive ? 'rgba(91,124,255,0.08)' : 'transparent' })}>
-          My Dashboard
-        </NavLink>
-
-        <NavLink to="/students" style={({ isActive }) => ({ display: 'block', padding: 10, borderRadius: 8, color: 'var(--text)', textDecoration: 'none', marginBottom: 8, background: isActive ? 'rgba(91,124,255,0.08)' : 'transparent' })}>
-          Students
-        </NavLink>
-
-        <NavLink to="/teachers" style={({ isActive }) => ({ display: 'block', padding: 10, borderRadius: 8, color: 'var(--text)', textDecoration: 'none', marginBottom: 8, background: isActive ? 'rgba(91,124,255,0.08)' : 'transparent' })}>
-          Teachers
-        </NavLink>
+        <NavLink to="/students">Students</NavLink>
+        <NavLink to="/teachers">Teachers</NavLink>
       </nav>
 
       <div style={{ padding: 18 }}>
-        <button onClick={signOut} className="btn" style={{ width: '100%' }}>Sign out</button>
+        <button className="btn" onClick={handleSignOut}>Sign out</button>
       </div>
-    </div>
+    </aside>
   );
 }

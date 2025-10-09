@@ -1,6 +1,4 @@
-/* src/styles/theme.css — final fix for background layering */
-
-:root {
+:root{
   --accent-1: #5b7cff;
   --accent-2: #9b7cff;
   --muted-1: #6b7280;
@@ -9,78 +7,17 @@
   --surface-2: #f7f8fb;
   --bg-color-plain: #ffffff;
   --text: #0c1520;
+  --radius-md: 12px;
+  --radius-sm: 8px;
 }
 
-.theme-dark {
-  --surface: #1e2933;
-  --surface-2: #111827;
-  --bg-color-plain: #121212;
+.theme-dark{
+  --surface: #11161a;
+  --surface-2: #0f1316;
+  --bg-color-plain: #0b0d0f;
   --text: #e6eefc;
   --muted-1: #9aa0ad;
   --muted-2: #7f8793;
   --accent-1: #7aa2ff;
   --accent-2: #6b8bff;
-}
-
-.theme-light {
-  --surface: #ffffff;
-  --surface-2: #f7f8fb;
-  --bg-color-plain: #ffffff;
-  --text: #0c1520;
-  --muted-1: #6b7280;
-  --muted-2: #9aa0a6;
-}
-
-/* Background base */
-.app-bg {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--bg-color-plain);
-  pointer-events: none; /* ensures nothing on it can intercept */
-  z-index: 0;           /* neutral base layer */
-}
-/* src/styles/theme.css — final fix for background layering */
-
-:root {
-  --accent-1: #5b7cff;
-  --accent-2: #9b7cff;
-  --muted-1: #6b7280;
-  --muted-2: #9aa0a6;
-  --surface: #ffffff;
-  --surface-2: #f7f8fb;
-  --bg-color-plain: #ffffff;
-  --text: #0c1520;
-}
-
-.theme-dark {
-  --surface: #1e2933;
-  --surface-2: #111827;
-  --bg-color-plain: #121212;
-  --text: #e6eefc;
-  --muted-1: #9aa0ad;
-  --muted-2: #7f8793;
-  --accent-1: #7aa2ff;
-  --accent-2: #6b8bff;
-}
-
-.theme-light {
-  --surface: #ffffff;
-  --surface-2: #f7f8fb;
-  --bg-color-plain: #ffffff;
-  --text: #0c1520;
-  --muted-1: #6b7280;
-  --muted-2: #9aa0a6;
-}
-
-/* Background base */
-.app-bg {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--bg-color-plain);
-  pointer-events: none; /* ensures nothing on it can intercept */
-  z-index: 0;           /* neutral base layer */
 }

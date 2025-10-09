@@ -1,109 +1,55 @@
 import React from "react";
-import { Routes, Route, NavLink, useNavigate } from "react-router-dom";
-import "./styles/app.css";
-
-function Sidebar() {
-  return (
-    <div className="sidebar">
-      <div className="logo">
-        <div
-          style={{
-            width: "40px",
-            height: "40px",
-            background: "var(--accent-1)",
-            borderRadius: "8px",
-          }}
-        ></div>
-        <div>
-          <strong>Edu ERP</strong>
-          <div className="small">University - Desktop</div>
-        </div>
-      </div>
-      <div className="nav">
-        <NavLink to="/" end>
-          Home
-        </NavLink>
-        <NavLink to="/dashboard">My Dashboard</NavLink>
-        <NavLink to="/students">Students</NavLink>
-        <NavLink to="/teachers">Teachers</NavLink>
-      </div>
-      <button className="btn" style={{ marginTop: "auto" }}>
-        Sign out
-      </button>
-    </div>
-  );
-}
-
-function Home() {
-  return (
-    <div className="content">
-      <div className="card">
-        <h2>Welcome back</h2>
-        <p>Here’s a summary of the system</p>
-        <p>Signed in as <b>rohan</b></p>
-      </div>
-    </div>
-  );
-}
-
-function Dashboard() {
-  return (
-    <div className="content">
-      <div className="card">
-        <h2>My Dashboard</h2>
-        <p>Work in progress, but navigation works 👌</p>
-      </div>
-    </div>
-  );
-}
-
-function Students() {
-  return (
-    <div className="content">
-      <div className="card">
-        <h2>Students</h2>
-        <p>List of students, attendance, grades etc. will appear here soon.</p>
-      </div>
-    </div>
-  );
-}
-
-function Teachers() {
-  return (
-    <div className="content">
-      <div className="card">
-        <h2>Teachers</h2>
-        <p>Manage teacher data, timetables, and more.</p>
-      </div>
-    </div>
-  );
-}
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useAuth } from "./context/AuthContext";
+import Topbar from "./components/Topbar";
+import Sidebar from "./components/Sidebar";
+import Login from "./pages/Login";
+import AdminLogin from "./pages/AdminLogin";
+import Register from "./pages/Register";
+import StudentDashboard from "./pages/StudentDashboard";
+import TeacherDashboard from "./pages/TeacherDashboard";
+import AdminDashboard from "./pages/AdminDashboard";
+import NotFound from "./pages/NotFound";
 
 export default function App() {
   return (
-    <div className="app-shell">
-      <Sidebar />
-      <div className="main">
-        <div className="header">
-          <input
-            type="text"
-            className="input search"
-            placeholder="Search students, teachers, courses..."
-          />
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <span>Theme: system (dark)</span>
-            <button className="btn">Toggle</button>
-            <span>rohan</span>
-          </div>
-        </div>
+    <>
+      {/* background element: keep DOM order such that app-shell is rendered after */}
+      <div className="app-bg" />
+      <div className="app-shell">
+        <Sidebar />
+        <div className="main">
+          <Topbar />
+          <main style={{ padding: 18 }}>
+            <Routes>
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/admin-login" element={<AdminLogin />} />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/students" element={<Students />} />
-          <Route path="/teachers" element={<Teachers />} />
-        </Routes>
+              {/* protected routes */}
+              <Route path="/student-dashboard" element={<RequireRole role="student"><StudentDashboard /></RequireRole>} />
+              <Route path="/teacher-dashboard" element={<RequireRole role="teacher"><TeacherDashboard /></RequireRole>} />
+              <Route path="/admin" element={<RequireRole role="admin"><AdminDashboard /></RequireRole>} />
+
+              <Route path="/" element={<Navigate to="/student-dashboard" replace />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
+        </div>
       </div>
-    </div>
+    </>
   );
+}
+
+function RequireRole({ children, role }) {
+  const { user } = useAuth();
+  if (!user) {
+    // not logged in
+    return <Navigate to="/login" replace />;
+  }
+  if (role && user.role !== role) {
+    // wrong role
+    return <div style={{ padding: 24 }}><h3>Access denied</h3><p>You don’t have access to this page.</p></div>;
+  }
+  return children;
 }

@@ -1,48 +1,49 @@
-import React, { useState } from 'react';
-import Card from '../components/Card';
-import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function Register() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("student");
+  const [err, setErr] = useState("");
   const { register } = useAuth();
-  const [role, setRole] = useState('student');
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
   const nav = useNavigate();
 
   function submit(e) {
     e.preventDefault();
-    register({ name, email, role });
-    nav('/');
+    const r = register({ name, email, password, role });
+    if (!r.ok) { setErr(r.message); return; }
+    if (r.user.role === "student") nav("/student-dashboard");
+    else if (r.user.role === "teacher") nav("/teacher-dashboard");
   }
 
   return (
     <div className="login-wrapper">
-      <Card title="Register for Edu ERP">
-        <form onSubmit={submit} style={{ display: 'grid', gap: 12 }}>
-          <label>
-            <div className="kicker">Full name</div>
-            <input className="input" required value={name} onChange={(e) => setName(e.target.value)} />
-          </label>
+      <div className="duo-card">
+        <h3 className="h2">Register</h3>
+        <form onSubmit={submit}>
+          <label className="small">Full name</label>
+          <input className="input" value={name} onChange={(e)=>setName(e.target.value)} />
 
-          <label>
-            <div className="kicker">Email</div>
-            <input className="input" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
-          </label>
+          <label className="small">Email</label>
+          <input className="input" value={email} onChange={(e)=>setEmail(e.target.value)} />
 
-          <label>
-            <div className="kicker">Register as</div>
-            <select className="input" value={role} onChange={(e) => setRole(e.target.value)}>
-              <option value="student">Student</option>
-              <option value="teacher">Teacher</option>
-            </select>
-          </label>
+          <label className="small">Password</label>
+          <input type="password" className="input" value={password} onChange={(e)=>setPassword(e.target.value)} />
 
-          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <div style={{ margin: "10px 0" }}>
+            <label style={{ marginRight: 8 }}><input type="radio" checked={role === "student"} onChange={() => setRole("student")} /> Student</label>
+            <label style={{ marginLeft: 12 }}><input type="radio" checked={role === "teacher"} onChange={() => setRole("teacher")} /> Teacher</label>
+          </div>
+
+          {err && <div style={{ color: "crimson" }}>{err}</div>}
+          <div style={{ marginTop: 8, display: "flex", justifyContent: "flex-end" }}>
             <button className="btn" type="submit">Register</button>
           </div>
         </form>
-      </Card>
+      </div>
     </div>
   );
 }
